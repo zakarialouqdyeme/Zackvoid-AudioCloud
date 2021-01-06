@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["id"])) header('Location:login.php'); 
+if(!isset($_SESSION["id"])) header('Location:../Auth/login.php'); 
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php if(isset($_SESSION["role"]))echo 'Quete vers la justice - Espace '.$_SESSION["role"]; else echo "{{role}}" ?>
+        ZV AUDIOCLOUD - Tracks
     </title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -44,7 +44,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Gérer les Profs</h1>
+                            <h1>Tracks</h1>
                         </div>
                         <div class="col-sm-6">
 
@@ -61,7 +61,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                         <div class="modal-content">
                             <div class="modal-header">
 
-                                <h4 class="modal-title">Ajouter un Prof</h4>
+                                <h4 class="modal-title">Add Track</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -124,8 +124,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn  btn-outline-primary btn-sm" id="addopenModal">Ajouter un
-                            prof</button>
+                        <button type="button" class="btn  btn-outline-primary btn-sm" id="addopenModal">Add Track</button>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -164,8 +163,8 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                                         <table class="table table-hover text-nowrap">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Nom</th>
+                                                    
+                                                    <th>title</th>
                                                     <th>Email</th>
                                                     <th>password</th>
                                                     <th>Ecole</th>
@@ -173,8 +172,8 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                                                 </tr>
                                             </thead>
                                             <tbody id="dataContainer">
-                                                <!--  <tr>
-                          <td >183</td>
+                                                 <tr>
+                        
                           <td contenteditable="true" spellcheck="false" class="colEdit1" >zakariae louqdyeme</td>
                           <td contenteditable="true" spellcheck="false" class="colEdit2" >zakarialouqdyeme@gmail.com</td>
                           <td contenteditable="true" spellcheck="false" class="colEdit3" >ecole1</td>
@@ -182,7 +181,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                             <button type="button" class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
                           
                           </td>
-                        </tr> -->
+                        </tr>
 
                                             </tbody>
                                         </table>
@@ -228,7 +227,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="dist/js/crud/crudProfs.js"></script>
+    <!-- <script src="dist/js/crud/crudTracks.js"></script> -->
     <script src="dist/js/crud/globalScript.js"></script>
 
     <?php

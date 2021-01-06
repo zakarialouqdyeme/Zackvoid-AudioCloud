@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION["id"])) header('Location:login.php');
-if(isset($_SESSION["role"]) && $_SESSION["role"] == "prof") header('Location:statistique.php'); else header('Location:profs.php');
+if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
+if(true)  header('Location:Tracks.php');
  ?>
 <!DOCTYPE html>
 <html lang="en">

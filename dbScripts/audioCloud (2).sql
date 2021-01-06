@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2021 at 04:31 PM
+-- Generation Time: Jan 06, 2021 at 05:21 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -66,9 +66,16 @@ CREATE TABLE `users` (
   `idu` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(1000) NOT NULL,
-  `idPlaylist` int(11) NOT NULL,
-  `idTrack` int(11) NOT NULL
+  `idPlaylist` int(11) DEFAULT NULL,
+  `idTrack` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`idu`, `username`, `password`, `idPlaylist`, `idTrack`) VALUES
+(1, 'zackvoid', 'zackvoid', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -121,7 +128,7 @@ ALTER TABLE `track`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

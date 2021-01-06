@@ -3,7 +3,7 @@
     <a href="dashboard.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">
-          <?php if(isset($_SESSION["role"]) && $_SESSION["role"]=="prof" )echo 'ESPACE PROF'; else echo 'ESPACE ADMIN'; ?>
+          <?php if(true) echo 'ZV AUDIOCLOUD';?>
         </span>
     </a>
 
@@ -13,13 +13,13 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
         
-          <img src="<?php if(isset($_SESSION["role"]) && $_SESSION["role"]=="prof") echo 'data:image/png;base64,'.base64_encode($_SESSION["picture"]); else echo 'dist/img/avatar5.png';?>" class="img-circle elevation-2" alt="User Image">
+          <img src="dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
             <?php 
             
-            if(isset($_SESSION["fullName"]) )echo $_SESSION["fullName"]; else if(isset($_SESSION["name"])) echo $_SESSION["name"];
+            if(isset($_SESSION["username"]) )echo $_SESSION["username"];
             
             ?></a>
         </div>
@@ -43,58 +43,19 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-header">Vos fonctionnalité</li>
-               <?php 
-               if($_SESSION["role"] == "admin"){
-                   echo'
-                   <li class="nav-item">
+               <li class="nav-item">
                    <a href="profs.php" class="nav-link" id="navProfs">
                      <i class="fas fa-chalkboard-teacher nav-icon"></i>
-                     <p>Gérer les Profs</p>
+                     <p>Tracks</p>
                    </a>
                  </li>
 
                  <li class="nav-item">
                    <a href="schools.php" class="nav-link" id="navSchools">
                      <i class="fas fa-school nav-icon"></i>
-                     <p>Gérer les ecole</p>
+                     <p>Playlists</p>
                    </a>
                  </li>
-                 ';
-               }else{
-                   echo '<li class="nav-item">
-                 <a href="statistique.php" class="nav-link" id="navStat">
-                   <i class="fas fa-chart-line nav-icon"></i>
-                   <p>Statistique des classes</p>
-                 </a>
-               </li>
-
-               <li class="nav-item">
-                 <a href="students.php" class="nav-link" id="navStudents">
-                   <i class="fas fa-graduation-cap nav-icon"></i>
-                   <p>Gérer les eleves</p>
-                 </a>
-               </li>
-
-               <li class="nav-item">
-               <a href="classes.php" class="nav-link" id="navClasses">
-                 <i class="fas fa-users nav-icon"></i>
-                 <p>Gérer les classes</p>
-               </a>
-             </li>
-
-               <li class="nav-item">
-                 <a href="correction.php" class="nav-link" id="navCorrection">
-                   <i class="fas fa-check-circle nav-icon"></i>
-                   <p>Correction</p>
-                 </a>
-               </li>
-                   ';
-               }
-               
-               ?>
-              
-               
-               
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

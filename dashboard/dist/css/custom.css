@@ -1,14 +1,9 @@
 .login-page{
-    background-image: url("../img/connexionAdm.png")  !important;
+    background-image: url("../img/audio2.jpg")  !important;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
-.login-page,
-.register-page {
-
-  /* justify-content: normal!important;
-  padding:240px 0 0 0 !important; */
-}
+.login-page,.register-page {}
 
