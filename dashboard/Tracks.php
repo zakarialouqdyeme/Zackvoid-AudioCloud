@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once(dirname(__FILE__)."/".'../config.php');
 if(!isset($_SESSION["id"])) header('Location:../Auth/login.php'); 
  ?>
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        ZV AUDIOCLOUD - Tracks
+        <?php echo Config::$websiteName ?> - Tracks
     </title>
 
     <!-- Google Font: Source Sans Pro -->

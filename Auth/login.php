@@ -1,7 +1,8 @@
 <?php
 session_start();
- if(isset($_SESSION["id"])) header("Location:../dashboard/dashboard.php") 
- ?>
+require_once(dirname(__FILE__).'/'.'../config.php');
+if(isset($_SESSION["id"])) header("Location:../dashboard/dashboard.php");
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ZV AUDIOCLOUD - LOGIN</title>
+    <title><?php echo Config::$websiteName; ?> - LOGIN</title>
     <link rel="stylesheet" href="../dashboard/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -29,7 +30,7 @@ session_start();
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="" class="h1"><b>ZV AUDIOCLOUD</b></a>
+                <a href="" class="h1"><b><?php  echo Config::$websiteName; ?></b></a>
             </div>
             <div class="card-body">
                 <!-- <p class="login-box-msg">Connectez-vous pour démarrer votre session</p> -->

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once(dirname(__FILE__)."/".'../config.php');
 if(!isset($_SESSION["id"])) header('Location:login.php'); 
  ?>
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    <?php if(isset($_SESSION["role"]))echo 'Quete vers la justice - Espace '.$_SESSION["role"]; else echo "{{role}}" ?>
+    <?php if(true) echo Config::$websiteName ?> - Playlists
   </title>
 
   <!-- Google Font: Source Sans Pro -->

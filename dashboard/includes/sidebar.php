@@ -3,7 +3,7 @@
     <a href="dashboard.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">
-          <?php if(true) echo 'ZV AUDIOCLOUD';?>
+          <?php if(true) echo Config::$websiteName;?>
         </span>
     </a>
 
@@ -42,17 +42,17 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-header">Vos fonctionnalité</li>
+               <li class="nav-header">Features</li>
                <li class="nav-item">
-                   <a href="profs.php" class="nav-link" id="navProfs">
-                     <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                   <a href="Tracks.php" class="nav-link" id="navTracks">
+                     <i class="fas fa-podcast nav-icon"></i>
                      <p>Tracks</p>
                    </a>
                  </li>
 
                  <li class="nav-item">
-                   <a href="schools.php" class="nav-link" id="navSchools">
-                     <i class="fas fa-school nav-icon"></i>
+                   <a href="Playlist.php" class="nav-link" id="navPlayLists">
+                     <i class="fas fa-headphones-alt nav-icon"></i>
                      <p>Playlists</p>
                    </a>
                  </li>

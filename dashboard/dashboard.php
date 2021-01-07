@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
-if(true)  header('Location:Tracks.php');
+if(true) header('Location:Tracks.php');
  ?>
 <!DOCTYPE html>
 <html lang="en">
