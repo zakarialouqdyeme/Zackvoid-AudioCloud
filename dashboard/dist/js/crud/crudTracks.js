@@ -4,10 +4,16 @@ $(document).ready(async () => {
 
 
 
-    function fetchProfsData() {
+    function fetchTracksData() {
+
+        $("#addopenModal").click(() => {
+            $("#modal-add").modal();
+
+        });
+
         $.ajax({
             type: "POST",
-            url: "Requests/fetchProfsData.php",
+            url: "Requests/fetchTracksData.php",
             dataType: "text",
             success: function (response) {
 
@@ -16,49 +22,25 @@ $(document).ready(async () => {
                     dataContainer.html(response);
 
                     $(".colEdit1").on("input", (e) => {
-                        let id = $(e.currentTarget).data("id");
-                        let name = $(e.currentTarget).text();
-                        console.log(id);
-                        editProfName(id, name);
+
+
                     });
 
-                    $("#addopenModal").click(() => {
-                        $("#modal-add").modal();
-                        fetchSchoolsData($("#selectSchool"));
-                    });
+
                     $("#add").click(async () => {
+                        
                         let name = $("#nameInp").val();
                         let email = $("#InputEmail1").val();
                         let password = $("#passInp").val();
-                        let school_id = $("#selectSchool").val();
-
-                        let canAddEmail = await emailExists(email, -1);
+                        let school_id = $("#selectSchool").val();                   
                         let picture = await getCroppedImage();
                         let isPicValid = picture != "data:,";
                         let blobPic = await getCroppedBlob();
-                        if (name != "" && password != "" && !canAddEmail && validateEmail(email) && isPicValid) {
-                            addProf(name, email, password, school_id, blobPic);
-                        }
-
-                        if (canAddEmail || !validateEmail(email)) {
-                            console.log("error");
-                            $("#InputEmail1").addClass("is-invalid");
-                        }
-                        if (!isPicValid) {
-                            console.log("picInvalid");
-                            $("#addProfImage").addClass("btn-danger");
-                            $("#addProfImage").removeClass("btn-info");
-                        }
-                        if (password == "") {
-                            console.log("password Empty");
-                            $("#passInp").addClass("is-invalid");
-                        }
-                        if (name == "") {
-                            console.log("nameEmpty");
-                            $("#nameInp").addClass("is-invalid");
-                        }
 
 
+                        if (name != "" && password != "" && isPicValid) {
+                            addTrack(name, email, password, school_id, blobPic);
+                        }
 
                     });
 
@@ -152,35 +134,17 @@ $(document).ready(async () => {
         });
     }
 
-    fetchProfsData();
-
-    function validateEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    async function emailExistsCheck(email, id) {
-        let requestInit = {
-            credentials: 'include',
-            method: 'get',
-        };
-
-        let url = "Requests/checkEmail.php?email=" + email + "&id=" + id;
-        let data = await fetch(url, requestInit);
-        return data.text();
-    }
-
-    async function emailExists(email, id) {
-        return await emailExistsCheck(email, id) == "true" ? true : false;
-    }
+    fetchTracksData();
 
 
 
-    function deleteProf(id) {
+
+
+    function deleteTrack(id) {
         console.log(id);
         $.ajax({
             type: "POST",
-            url: "Requests/deleteProf.php",
+            url: "Requests/deleteTrack.php",
             data: { id: id },
             dataType: "text",
             success: function (response) {
@@ -237,18 +201,17 @@ $(document).ready(async () => {
         });
 
     }
-    function addProf(name, email, password, school_id, picture) {
+    function addTrack(name, email, password, school_id, picture) {
 
         var formData = new FormData();
-        formData.append("name",name);
-        formData.append("email",email);
-        formData.append("password",password);
-        formData.append("school_id",school_id);
-       
-        formData.append("picture",picture);
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("school_id", school_id);
+        formData.append("picture", picture);
         $.ajax({
             type: "POST",
-            url: "Requests/addProf.php",
+            url: "Requests/addTrack.php",
             data: formData,
             processData: false,
             contentType: false,
@@ -271,18 +234,7 @@ $(document).ready(async () => {
             }
         });
     }
-    function fetchSchoolsData(container) {
 
-        $.ajax({
-            type: "POST",
-            url: "Requests/getSchoolData.php",
-            dataType: "text",
-            success: function (response) {
-                container.html(response);
-            }
-        });
-
-    }
 
     $("#addProfImage").click(() => {
         $("#images").click();
@@ -322,8 +274,8 @@ $(document).ready(async () => {
 
     image_crop.on('update.croppie', function (ev, cropData) {
 
-/* console.log(getCroppedBlob()); */
-         
+        /* console.log(getCroppedBlob()); */
+
 
     });
 
@@ -333,7 +285,7 @@ $(document).ready(async () => {
             size: 'viewport'
         });
     }
-    async function getCroppedBlob(){
+    async function getCroppedBlob() {
         return await image_crop.croppie('result', {
             type: 'blob',
             size: 'viewport'

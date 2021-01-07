@@ -15,12 +15,13 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -68,7 +69,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                             </div>
                             <div class="modal-body">
 
-                               <!--  <div class="widget-user-image text-center">
+                                <!--  <div class="widget-user-image text-center">
                                     <img class="img-circle elevation-2" id="addProfImage" src="dist/img/user1-128x128.jpg"
                                         alt="User Avatar">
                                         <input type="file" name="" id="selectImageProf" style="display: none;">
@@ -77,13 +78,14 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                 <div class="row">
                                     <div class="col-12">
                                         <div id="upload-image"></div>
-                                        </div>
-                                        <div class="col-12">
-                                          <input type="file" id="images" style="display: none;">
-                                        </div>
-                                        <div class="col-12 text-center mb-2">
-                                            <button class="btn btn-info crop_image margin-auto" id="addProfImage">Photo de profile</button>
-                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="file" id="images" style="display: none;">
+                                    </div>
+                                    <div class="col-12 text-center mb-2">
+                                        <button class="btn btn-info crop_image margin-auto" id="addProfImage">Photo de
+                                            profile</button>
+                                    </div>
                                 </div>
 
 
@@ -124,7 +126,8 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn  btn-outline-primary btn-sm" id="addopenModal">Add Track</button>
+                        <button type="button" class="btn  btn-outline-primary btn-sm" id="addopenModal">Add
+                            Track</button>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -163,25 +166,29 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <table class="table table-hover text-nowrap">
                                             <thead>
                                                 <tr>
-                                                    
+
                                                     <th>title</th>
                                                     <th>Email</th>
                                                     <th>password</th>
-                                                    <th>Ecole</th>
+
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="dataContainer">
-                                                 <tr>
-                        
-                          <td contenteditable="true" spellcheck="false" class="colEdit1" >zakariae louqdyeme</td>
-                          <td contenteditable="true" spellcheck="false" class="colEdit2" >zakarialouqdyeme@gmail.com</td>
-                          <td contenteditable="true" spellcheck="false" class="colEdit3" >ecole1</td>
-                          <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
-                          
-                          </td>
-                        </tr>
+                                                <tr>
+
+                                                    <td contenteditable="true" spellcheck="false" class="colEdit1">
+                                                        zakariae louqdyeme</td>
+                                                    <td contenteditable="true" spellcheck="false" class="colEdit2">
+                                                        zakarialouqdyeme@gmail.com</td>
+                                                    <td contenteditable="true" spellcheck="false" class="colEdit3">
+                                                        ecole1</td>
+                                                    <td>
+                                                        <button type="button"
+                                                            class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
+
+                                                    </td>
+                                                </tr>
 
                                             </tbody>
                                         </table>
@@ -217,7 +224,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    
+
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
     <!-- Bootstrap 4 -->
@@ -227,7 +234,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-    <!-- <script src="dist/js/crud/crudTracks.js"></script> -->
+    <script src="dist/js/crud/crudTracks.js"></script>
     <script src="dist/js/crud/globalScript.js"></script>
 
     <?php
