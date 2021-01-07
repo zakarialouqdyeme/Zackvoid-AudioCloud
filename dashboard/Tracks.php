@@ -84,36 +84,41 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <input type="file" id="images" style="display: none;">
                                     </div>
                                     <div class="col-12 text-center mb-2">
-                                        <button class="btn btn-info crop_image margin-auto" id="addProfImage">Photo de
-                                            profile</button>
+                                        <button class="btn btn-info crop_image margin-auto" id="addProfImage">Cover
+                                            Image</button>
                                     </div>
                                 </div>
 
 
                                 <div class="form-group">
-                                    <label for="nameInp">Nom complet</label>
-                                    <input type="text" class="form-control" id="nameInp" placeholder="Nom complet">
+                                    <label for="titleInp">Track Title</label>
+                                    <input type="text" class="form-control" id="titleInp" placeholder="Title">
                                 </div>
                                 <div class="form-group">
-                                    <label for="addInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="InputEmail1" placeholder="Enter email">
+                                    <label for="description">Description</label>
+                                    <input type="email" class="form-control" id="description" placeholder="Description">
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="passInp">Mot de passe</label>
-                                    <input type="password" class="form-control" id="passInp" placeholder="mot de passe">
-                                </div>
-                                <div class="form-group">
-                                    <label for="selectSchool">Ecole</label>
-                                    <select class="custom-select" id="selectSchool">
+                                    <label for="selectPlaylist">Playlist</label>
+                                    <select class="custom-select" id="selectPlaylist">
                                         <!--   <option value="1">Value 1</option>
                     <option value="2">Value 2</option>
                     <option value="3">Value 3</option> -->
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                <label >Select your track file</label>
+                                <div class="custom-file">
+                                    
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                  </div>
+                                </div>
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="add">Ajouter</button>
+                                <button type="button" class="btn btn-primary" id="upload">Upload</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
@@ -169,8 +174,8 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                                 <tr>
 
                                                     <th>title</th>
-                                                    <th>Email</th>
-                                                    <th>password</th>
+                                                    <th>Descrition</th>
+                                                    <th>Playlist</th>
 
                                                     <th>Action</th>
                                                 </tr>
@@ -179,14 +184,22 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                                 <tr>
 
                                                     <td contenteditable="true" spellcheck="false" class="colEdit1">
-                                                        zakariae louqdyeme</td>
+                                                        The Podcast</td>
                                                     <td contenteditable="true" spellcheck="false" class="colEdit2">
-                                                        zakarialouqdyeme@gmail.com</td>
-                                                    <td contenteditable="true" spellcheck="false" class="colEdit3">
-                                                        ecole1</td>
+                                                        podcast 1 test </td>
+                                                    <td  spellcheck="false" class="colEdit3">
+                                                        <select class="custom-select" id="selectPlaylist">
+                                                              <option value="1">Value 1</option>
+                    <option value="2">Value 2</option>
+                    <option value="3">Value 3</option>
+                                                        </select>
+
+                                                    </td>
                                                     <td>
                                                         <button type="button"
                                                             class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-info btn-sm edit">Edit</button>
 
                                                     </td>
                                                 </tr>

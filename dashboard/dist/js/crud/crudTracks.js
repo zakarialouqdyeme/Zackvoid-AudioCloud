@@ -10,6 +10,28 @@ $(document).ready(async () => {
             $("#modal-add").modal();
 
         });
+        $("#upload").click(async () => {
+                        
+            let title = $("#titleInp").val();
+            let description = $("#description").val();      
+            let picture = await getCroppedImage();
+            let isPicValid = picture != "data:,";
+            let blobPic = await getCroppedBlob();
+            let File = $("#customFile").val();
+        
+            if (title != "" && description != "" && isPicValid && checkIsAudio(File)) {
+                /* addTrack(title, description, blobPic, File); */
+            }
+
+            if(!checkIsAudio(File)){
+                console.log("Please Try Choose a Audio File (MP3 OR WAV)");
+                $("#customFile").addClass("is-invalid");
+                
+            }else{
+                $("#customFile").removeClass("is-invalid");
+            }
+
+        });
 
         $.ajax({
             type: "POST",
@@ -27,22 +49,7 @@ $(document).ready(async () => {
                     });
 
 
-                    $("#add").click(async () => {
-                        
-                        let name = $("#nameInp").val();
-                        let email = $("#InputEmail1").val();
-                        let password = $("#passInp").val();
-                        let school_id = $("#selectSchool").val();                   
-                        let picture = await getCroppedImage();
-                        let isPicValid = picture != "data:,";
-                        let blobPic = await getCroppedBlob();
-
-
-                        if (name != "" && password != "" && isPicValid) {
-                            addTrack(name, email, password, school_id, blobPic);
-                        }
-
-                    });
+                    
 
                     $("#passInp").on("input", async (e) => {
                         if ($("#passInp").val() == "") {
@@ -201,7 +208,7 @@ $(document).ready(async () => {
         });
 
     }
-    function addTrack(name, email, password, school_id, picture) {
+    function addTrack(title, description, blobPic, File) {
 
         var formData = new FormData();
         formData.append("name", name);
@@ -290,6 +297,11 @@ $(document).ready(async () => {
             type: 'blob',
             size: 'viewport'
         });
+    }
+
+    function checkIsAudio(file){
+        var checkExtension=file.split('.').pop().toLowerCase();
+        return jQuery.inArray(checkExtension,['wav','mp3'])!=-1;
     }
 
 });
