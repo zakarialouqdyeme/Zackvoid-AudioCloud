@@ -70,12 +70,6 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                             </div>
                             <div class="modal-body">
 
-                                <!--  <div class="widget-user-image text-center">
-                                    <img class="img-circle elevation-2" id="addProfImage" src="dist/img/user1-128x128.jpg"
-                                        alt="User Avatar">
-                                        <input type="file" name="" id="selectImageProf" style="display: none;">
-                                </div> -->
-
                                 <div class="row">
                                     <div class="col-12">
                                         <div id="upload-image"></div>
@@ -84,11 +78,9 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <input type="file" id="images" style="display: none;">
                                     </div>
                                     <div class="col-12 text-center mb-2">
-                                        <button class="btn btn-info crop_image margin-auto" id="addProfImage">Cover
-                                            Image</button>
+                                        <button class="btn btn-info crop_image margin-auto" id="addProfImage">COVER IMAGE</button>
                                     </div>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label for="titleInp">Track Title</label>
@@ -99,14 +91,6 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                     <input type="email" class="form-control" id="description" placeholder="Description">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="selectPlaylist">Playlist</label>
-                                    <select class="custom-select" id="selectPlaylist">
-                                        <!--   <option value="1">Value 1</option>
-                    <option value="2">Value 2</option>
-                    <option value="3">Value 3</option> -->
-                                    </select>
-                                </div>
                                 <div class="form-group">
                                 <label >Select your track file</label>
                                 <div class="custom-file">
@@ -153,7 +137,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Liste des profs</h3>
+                                        <h3 class="card-title">Tracks List</h3>
 
                                         <div class="card-tools">
                                             <!-- <div class="input-group input-group-sm" style="width: 150px;">
@@ -172,7 +156,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <table class="table table-hover text-nowrap">
                                             <thead>
                                                 <tr>
-
+                                                    <th>Cover</th>
                                                     <th>title</th>
                                                     <th>Descrition</th>
                                                     <th>Action</th>
@@ -180,17 +164,20 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                             </thead>
                                             <tbody id="dataContainer">
                                                 <tr>
-
-                                                    <td contenteditable="true" spellcheck="false" class="colEdit1">
+                                                    <td  spellcheck="false" class="colEdit1">
+                                                        <img src="dist/img/avatar.png" class="" style="width: 50px;">
+                                                    </td>
+                                                    <td  spellcheck="false" class="colEdit1">
                                                         The Podcast</td>
-                                                    <td contenteditable="true" spellcheck="false" class="colEdit2">
+                                                    <td  spellcheck="false" class="colEdit2">
                                                         podcast 1 test </td>
                                                    
                                                     <td>
                                                         <button type="button"
                                                             class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
-                                                       <!--  <button type="button"
-                                                            class="btn btn-outline-info btn-sm edit">Edit</button> -->
+                                                        <button type="button"
+                                                            class="btn btn-outline-info btn-sm edit">Edit
+                                                        </button>
 
                                                     </td>
                                                 </tr>

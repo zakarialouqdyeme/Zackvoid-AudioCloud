@@ -44,7 +44,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Gérer les écoles</h1>
+              <h1>Playlists</h1>
             </div>
             <div class="col-sm-6">
 
@@ -60,7 +60,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Ajouter une école</h4>
+                <h4 class="modal-title">Add Playlist</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -88,7 +88,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <button type="button" class="btn  btn-outline-primary btn-sm" id="addopenModal">Ajouter une école</button>
+            <button type="button" class="btn  btn-outline-primary btn-sm" id="addopenModal">Add Playlist</button>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -108,7 +108,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Liste des écoles</h3>
+                    <h3 class="card-title">PlayLists</h3>
 
                     <div class="card-tools">
                       <!-- <div class="input-group input-group-sm" style="width: 150px;">
@@ -139,8 +139,8 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                           <td contenteditable="true" spellcheck="false" class="colEdit1">zakariae louqdyeme</td>
                           <td>
                             <div class="form-group">
-                              <label>Select Multiple</label>
-                              <select multiple="" class="form-control">
+                             
+                              <select multiple="" class="form-control" disabled>
                                 <option>option 1</option>
                                 <option>option 2</option>
                                 <option>option 3</option>
