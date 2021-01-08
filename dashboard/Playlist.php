@@ -70,7 +70,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                   <label for="nameInp">Nom</label>
                   <input type="text" class="form-control" id="nameInp" placeholder="Nom de l'école">
                 </div>
-                
+
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -127,53 +127,65 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                     <table class="table table-hover text-nowrap">
                       <thead>
                         <tr>
-                          <th>ID</th>
+
                           <th>Nom</th>
+                          <th>Tracks</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody id="dataContainer">
-                       <!--  <tr>
-                          <td >183</td>
-                          <td contenteditable="true" spellcheck="false" class="colEdit1" >zakariae louqdyeme</td>
-                          <td contenteditable="true" spellcheck="false" class="colEdit2" >zakarialouqdyeme@gmail.com</td>
-                          <td contenteditable="true" spellcheck="false" class="colEdit3" >ecole1</td>
+                        <tr>
+
+                          <td contenteditable="true" spellcheck="false" class="colEdit1">zakariae louqdyeme</td>
                           <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
-                          
+                            <div class="form-group">
+                              <label>Select Multiple</label>
+                              <select multiple="" class="form-control">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                <option>option 5</option>
+                              </select>
                           </td>
-                        </tr> -->
-
-                      </tbody>
-                    </table>
                   </div>
-                  <!-- /.card-body -->
+
+                  <td>
+                    <button type="button" class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
+
+                  </td>
+                  </tr>
+
+                  </tbody>
+                  </table>
                 </div>
-                <!-- /.card -->
+                <!-- /.card-body -->
               </div>
+              <!-- /.card -->
             </div>
-            <!-- /.row -->
           </div>
-          <!-- /.card-body -->
-
-          <!-- /.card-footer-->
+          <!-- /.row -->
         </div>
-        <!-- /.card -->
+        <!-- /.card-body -->
 
-      </section>
-      <!-- /.content -->
+        <!-- /.card-footer-->
     </div>
-    <!-- /.content-wrapper -->
+    <!-- /.card -->
 
-    <?php
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <?php
  include 'includes/footer.php';
  ?>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
 

@@ -175,8 +175,6 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
 
                                                     <th>title</th>
                                                     <th>Descrition</th>
-                                                    <th>Playlist</th>
-
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -187,19 +185,12 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                                         The Podcast</td>
                                                     <td contenteditable="true" spellcheck="false" class="colEdit2">
                                                         podcast 1 test </td>
-                                                    <td  spellcheck="false" class="colEdit3">
-                                                        <select class="custom-select" id="selectPlaylist">
-                                                              <option value="1">Value 1</option>
-                    <option value="2">Value 2</option>
-                    <option value="3">Value 3</option>
-                                                        </select>
-
-                                                    </td>
+                                                   
                                                     <td>
                                                         <button type="button"
                                                             class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-info btn-sm edit">Edit</button>
+                                                       <!--  <button type="button"
+                                                            class="btn btn-outline-info btn-sm edit">Edit</button> -->
 
                                                     </td>
                                                 </tr>
