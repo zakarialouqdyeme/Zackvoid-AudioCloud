@@ -26,6 +26,9 @@ $(document).ready(async () => {
                 console.log("picInvalid");
                 $("#addCoverImage").addClass("btn-danger");
                 $("#addCoverImage").removeClass("btn-info");
+            }else{
+                $("#addCoverImage").removeClass("btn-danger");
+                $("#addCoverImage").addClass("btn-info");
             }
 
             if (title == "") {
