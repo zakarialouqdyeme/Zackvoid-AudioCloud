@@ -11,23 +11,41 @@ $(document).ready(async () => {
 
         });
         $("#upload").click(async () => {
-                        
+
             let title = $("#titleInp").val();
-            let description = $("#description").val();      
+            let description = $("#description").val();
             let picture = await getCroppedImage();
             let isPicValid = picture != "data:,";
             let blobPic = await getCroppedBlob();
             let File = $("#customFile").val();
-        
+
             if (title != "" && description != "" && isPicValid && checkIsAudio(File)) {
-                /* addTrack(title, description, blobPic, File); */
+                addTrack(title, description, blobPic, File);
+            }
+            if (!isPicValid) {
+                console.log("picInvalid");
+                $("#addCoverImage").addClass("btn-danger");
+                $("#addCoverImage").removeClass("btn-info");
             }
 
-            if(!checkIsAudio(File)){
+            if (title == "") {
+                $("#titleInp").addClass("is-invalid");
+            } else {
+                $("#titleInp").removeClass("is-invalid");
+            }
+
+            if (description == "") {
+                $("#description").addClass("is-invalid");
+            } else {
+                $("#description").removeClass("is-invalid");
+            }
+            
+
+            if (!checkIsAudio(File)) {
                 console.log("Please Try Choose a Audio File (MP3 OR WAV)");
                 $("#customFile").addClass("is-invalid");
-                
-            }else{
+
+            } else {
                 $("#customFile").removeClass("is-invalid");
             }
 
@@ -38,77 +56,10 @@ $(document).ready(async () => {
             url: "Requests/fetchTracksData.php",
             dataType: "text",
             success: function (response) {
-
+                console.log(response);
                 if (response != "error") {
 
                     dataContainer.html(response);
-
-                    $(".colEdit1").on("input", (e) => {
-
-
-                    });
-
-
-                    
-
-                    $("#passInp").on("input", async (e) => {
-                        if ($("#passInp").val() == "") {
-                            console.log("password Empty");
-                            $("#passInp").addClass("is-invalid");
-                        } else {
-                            $("#passInp").removeClass("is-invalid");
-                        }
-                    });
-
-                    $("#nameInp").on("input", async (e) => {
-                        if ($("#nameInp").val() == "") {
-                            console.log("nameEmpty");
-                            $("#nameInp").addClass("is-invalid");
-                        } else {
-                            $("#nameInp").removeClass("is-invalid");
-                        }
-                    });
-
-
-                    $(".colEdit2").on("input", async (e) => {
-
-                        let id = $(e.currentTarget).data("id");
-                        let email = $(e.currentTarget).text();
-                        let canEditEmail = await emailExists(email, id);
-
-                        if (!canEditEmail && validateEmail(email)) {
-                            //console.log(email);
-                            $(".colEdit2[contenteditable]:focus").css({
-                                "outline": "2px solid green"
-                            });
-                            editProfEmail(id, email);
-                        } else {
-                            $(".colEdit2[contenteditable]:focus").css({
-                                "outline": "2px solid red"
-                            });
-                        }
-
-                    });
-
-                    $(".colEdit2").blur(async (e) => {
-                        $(".colEdit2[contenteditable]").css({
-                            "outline": "1px solid transparent"
-                        });
-                    });
-
-                    $(".colEdit3").on("change", (e) => {
-                        let id = $(e.currentTarget).data("id");
-                        let school_id = $(e.currentTarget).val();
-                        console.log(id + " " + school_id);
-                        editProfschool(id, school_id);
-
-                    });
-                    $(".colEdit4").on("input", (e) => {
-                        let id = $(e.currentTarget).data("id");
-                        let password = $(e.currentTarget).text();
-                        editProfpassword(id, password);
-
-                    });
 
                     $(".delete").click((e) => {
                         var id = $(e.currentTarget).data("id");
@@ -127,8 +78,8 @@ $(document).ready(async () => {
 
 
                                 console.log(id);
-                                deleteProf(id);
-                                fetchProfsData();
+                                deleteTrack(id);
+                                fetchTracksData();
                                 // console.log(e.isConfirmed)
                             } else {
                                 Swal.fire("Annuller", "suppression Annuller", "error");
@@ -211,12 +162,22 @@ $(document).ready(async () => {
     function addTrack(title, description, blobPic, File) {
 
         var formData = new FormData();
-        formData.append("name", name);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("school_id", school_id);
-        formData.append("picture", picture);
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("cover", blobPic);
+        formData.append("Audiofile", File);
+
         $.ajax({
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = (evt.loaded / evt.total) * 100;
+                        console.log("Upload Progress: " + percentComplete);
+                    }
+                }, false);
+                return xhr;
+            },
             type: "POST",
             url: "Requests/addTrack.php",
             data: formData,
@@ -226,16 +187,9 @@ $(document).ready(async () => {
             success: function (response) {
                 console.log(response);
                 if (response == "success") {
-                    fetchProfsData();
+                    fetchTracksData();
                     $("#modal-add").modal("hide");
-                    $("#InputEmail1").removeClass("is-invalid");
-                    Swal.fire({
-                        position: 'bottom-mid',
-                        icon: 'success',
-                        title: "Prof Ajouté Avec Succès",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    showMessage("Track Added", "success", 1500);
                 }
 
             }
@@ -243,7 +197,7 @@ $(document).ready(async () => {
     }
 
 
-    $("#addProfImage").click(() => {
+    $("#addCoverImage").click(() => {
         $("#images").click();
     });
 
@@ -286,6 +240,7 @@ $(document).ready(async () => {
 
     });
 
+
     async function getCroppedImage() {
         return await image_crop.croppie('result', {
             type: 'canvas',
@@ -299,9 +254,9 @@ $(document).ready(async () => {
         });
     }
 
-    function checkIsAudio(file){
-        var checkExtension=file.split('.').pop().toLowerCase();
-        return jQuery.inArray(checkExtension,['wav','mp3'])!=-1;
+    function checkIsAudio(file) {
+        var checkExtension = file.split('.').pop().toLowerCase();
+        return jQuery.inArray(checkExtension, ['wav', 'mp3']) != -1;
     }
 
 });

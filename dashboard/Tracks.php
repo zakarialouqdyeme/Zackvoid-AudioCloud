@@ -78,7 +78,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <input type="file" id="images" style="display: none;">
                                     </div>
                                     <div class="col-12 text-center mb-2">
-                                        <button class="btn btn-info crop_image margin-auto" id="addProfImage">COVER IMAGE</button>
+                                        <button class="btn btn-info crop_image margin-auto" id="addCoverImage">COVER IMAGE</button>
                                     </div>
                                 </div>
 

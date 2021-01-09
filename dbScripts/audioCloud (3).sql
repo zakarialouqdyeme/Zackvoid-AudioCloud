@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2021 at 05:21 PM
+-- Generation Time: Jan 09, 2021 at 05:36 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `playlist` (
   `idp` int(11) NOT NULL,
-  `name` varchar(1000) NOT NULL
+  `name` varchar(1000) NOT NULL,
+  `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -53,7 +54,8 @@ CREATE TABLE `track` (
   `idt` int(11) NOT NULL,
   `title` varchar(1000) NOT NULL,
   `image` longblob NOT NULL,
-  `filename` varchar(1000) NOT NULL
+  `filename` varchar(1000) NOT NULL,
+  `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -65,17 +67,15 @@ CREATE TABLE `track` (
 CREATE TABLE `users` (
   `idu` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(1000) NOT NULL,
-  `idPlaylist` int(11) DEFAULT NULL,
-  `idTrack` int(11) DEFAULT NULL
+  `password` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`idu`, `username`, `password`, `idPlaylist`, `idTrack`) VALUES
-(1, 'zackvoid', 'zackvoid', NULL, NULL);
+INSERT INTO `users` (`idu`, `username`, `password`) VALUES
+(1, 'zackvoid', 'zackvoid');
 
 --
 -- Indexes for dumped tables
@@ -85,28 +85,27 @@ INSERT INTO `users` (`idu`, `username`, `password`, `idPlaylist`, `idTrack`) VAL
 -- Indexes for table `playlist`
 --
 ALTER TABLE `playlist`
-  ADD PRIMARY KEY (`idp`);
+  ADD PRIMARY KEY (`idp`),
+  ADD KEY `uP` (`userId`);
 
 --
 -- Indexes for table `tp`
 --
 ALTER TABLE `tp`
-  ADD PRIMARY KEY (`idp`,`idt`),
-  ADD KEY `tpt` (`idt`);
+  ADD PRIMARY KEY (`idp`,`idt`);
 
 --
 -- Indexes for table `track`
 --
 ALTER TABLE `track`
-  ADD PRIMARY KEY (`idt`);
+  ADD PRIMARY KEY (`idt`),
+  ADD KEY `uT` (`userId`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`idu`,`username`),
-  ADD KEY `uP` (`idPlaylist`),
-  ADD KEY `uT` (`idTrack`);
+  ADD PRIMARY KEY (`idu`,`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -135,6 +134,12 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `playlist`
+--
+ALTER TABLE `playlist`
+  ADD CONSTRAINT `uP` FOREIGN KEY (`userId`) REFERENCES `users` (`idu`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tp`
 --
 ALTER TABLE `tp`
@@ -142,11 +147,10 @@ ALTER TABLE `tp`
   ADD CONSTRAINT `tpt` FOREIGN KEY (`idt`) REFERENCES `track` (`idt`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `users`
+-- Constraints for table `track`
 --
-ALTER TABLE `users`
-  ADD CONSTRAINT `uP` FOREIGN KEY (`idPlaylist`) REFERENCES `playlist` (`idp`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `uT` FOREIGN KEY (`idTrack`) REFERENCES `track` (`idt`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `track`
+  ADD CONSTRAINT `uT` FOREIGN KEY (`userId`) REFERENCES `users` (`idu`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
