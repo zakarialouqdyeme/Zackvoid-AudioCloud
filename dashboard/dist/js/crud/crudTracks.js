@@ -56,7 +56,7 @@ $(document).ready(async () => {
 
         $.ajax({
             type: "POST",
-            url: "Requests/fetchTracksData.php",
+            url: "Requests/Tracks/fetchTracksData.php",
             dataType: "text",
             success: function (response) {
                 console.log(response);
@@ -90,6 +90,8 @@ $(document).ready(async () => {
                         });
 
                     });
+                }else{
+                    showMessage("Tracks Load Error", "error", 1500);
                 }
             }
         });
@@ -182,7 +184,7 @@ $(document).ready(async () => {
                 return xhr;
             },
             type: "POST",
-            url: "Requests/addTrack.php",
+            url: "Requests/Tracks/addTrack.php",
             data: formData,
             processData: false,
             contentType: false,
@@ -242,6 +244,16 @@ $(document).ready(async () => {
 
 
     });
+    
+    function showMessage(message,icon,time){
+        Swal.fire({
+            position: 'bottom-mid',
+            icon: icon,
+            title: message,
+            showConfirmButton: false,
+            timer: time
+        });
+    }
 
 
     async function getCroppedImage() {
@@ -262,4 +274,33 @@ $(document).ready(async () => {
         return jQuery.inArray(checkExtension, ['wav', 'mp3']) != -1;
     }
 
+    function createUploadSlider(){
+         // 1. Initialise range slider instance
+         $(".js-range-slider").ionRangeSlider({
+            min: 0,
+            max: 100,
+           
+        });
+    
+    // 2. Save instance to variable
+    let my_range = $(".js-range-slider").data("ionRangeSlider");
+    
+   
+    
+let i=0;
+    setInterval(()=>{
+        
+my_range.update({
+        from: i,
+        to: i++
+    });
+    },500);
+    
+   /*  // 4. Reset range slider to initial values
+    my_range.reset(); */
+    
+ /*    // 5. Destroy instance of range slider
+    my_range.destroy(); */
+    }
+    createUploadSlider();
 });

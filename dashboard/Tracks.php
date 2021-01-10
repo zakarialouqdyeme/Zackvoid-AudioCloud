@@ -15,13 +15,19 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap-slider/css/bootstrap-slider.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+   
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    
+    
 
 </head>
 
@@ -78,7 +84,8 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <input type="file" id="images" style="display: none;">
                                     </div>
                                     <div class="col-12 text-center mb-2">
-                                        <button class="btn btn-info crop_image margin-auto" id="addCoverImage">COVER IMAGE</button>
+                                        <button class="btn btn-info crop_image margin-auto" id="addCoverImage">COVER
+                                            IMAGE</button>
                                     </div>
                                 </div>
 
@@ -92,12 +99,12 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                 </div>
 
                                 <div class="form-group">
-                                <label >Select your track file</label>
-                                <div class="custom-file">
-                                    
-                                    <input type="file" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                  </div>
+                                    <label>Select your track file</label>
+                                    <div class="custom-file">
+
+                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
@@ -111,7 +118,9 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                 </div>
                 <!-- /.modal add -->
 
-
+                <div class="col-sm-6" >
+                    <input type="text" class="js-range-slider" name="my_range" value="" />
+                </div>
 
                 <!-- Default box -->
                 <div class="card">
@@ -140,15 +149,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <h3 class="card-title">Tracks List</h3>
 
                                         <div class="card-tools">
-                                            <!-- <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default">
-                            <i class="fas fa-search"></i>
-                          </button>
-                        </div>
-                      </div> -->
                                         </div>
                                     </div>
                                     <!-- /.card-header -->
@@ -164,14 +165,14 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                             </thead>
                                             <tbody id="dataContainer">
                                                 <tr>
-                                                    <td  spellcheck="false" class="colEdit1">
+                                                    <td spellcheck="false" class="colEdit1">
                                                         <img src="dist/img/avatar.png" class="" style="width: 50px;">
                                                     </td>
-                                                    <td  spellcheck="false" class="colEdit1">
+                                                    <td spellcheck="false" class="colEdit1">
                                                         The Podcast</td>
-                                                    <td  spellcheck="false" class="colEdit2">
+                                                    <td spellcheck="false" class="colEdit2">
                                                         podcast 1 test </td>
-                                                   
+
                                                     <td>
                                                         <button type="button"
                                                             class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
@@ -220,14 +221,22 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
     <!-- Bootstrap 4 -->
+    
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   
+  
+     
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
+    <script src="plugins/bootstrap-slider/bootstrap-slider.min.js">
+    </script>
+    <script src="plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
-    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="dist/js/crud/crudTracks.js"></script>
     <script src="dist/js/crud/globalScript.js"></script>
+    <script src="dist/js/crud/crudTracks.js"></script>
+
 
     <?php
  include 'includes/GlobalScripts.php';

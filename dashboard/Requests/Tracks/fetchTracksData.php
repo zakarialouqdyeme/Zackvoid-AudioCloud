@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../includes/connect.php';
+include '../../../includes/connect.php';
 $userId = $_SESSION["id"];
 $sql="select * from track where userId = '$userId' ";
 $result=$conn->query($sql);

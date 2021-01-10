@@ -6,15 +6,6 @@ $(document).ready(async () => {
     if (page == "Playlist.php") $("#navPlayLists").addClass("active");
 
 
-    function showMessage(message,icon,time){
-        Swal.fire({
-            position: 'bottom-mid',
-            icon: icon,
-            title: message,
-            showConfirmButton: false,
-            timer: time
-        });
-    }
     
     
 });
