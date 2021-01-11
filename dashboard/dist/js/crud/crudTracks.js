@@ -26,7 +26,7 @@ $(document).ready(async () => {
                 console.log("picInvalid");
                 $("#addCoverImage").addClass("btn-danger");
                 $("#addCoverImage").removeClass("btn-info");
-            }else{
+            } else {
                 $("#addCoverImage").removeClass("btn-danger");
                 $("#addCoverImage").addClass("btn-info");
             }
@@ -42,7 +42,7 @@ $(document).ready(async () => {
             } else {
                 $("#description").removeClass("is-invalid");
             }
-            
+
 
             if (!checkIsAudio(File)) {
                 console.log("Please Try Choose a Audio File (MP3 OR WAV)");
@@ -90,7 +90,7 @@ $(document).ready(async () => {
                         });
 
                     });
-                }else{
+                } else {
                     showMessage("Tracks Load Error", "error", 1500);
                 }
             }
@@ -244,8 +244,8 @@ $(document).ready(async () => {
 
 
     });
-    
-    function showMessage(message,icon,time){
+
+    function showMessage(message, icon, time) {
         Swal.fire({
             position: 'bottom-mid',
             icon: icon,
@@ -274,33 +274,34 @@ $(document).ready(async () => {
         return jQuery.inArray(checkExtension, ['wav', 'mp3']) != -1;
     }
 
-    function createUploadSlider(){
-         // 1. Initialise range slider instance
-         $(".js-range-slider").ionRangeSlider({
-            min: 0,
-            max: 100,
-           
-        });
+
+    let uploadSlider;
     
-    // 2. Save instance to variable
-    let my_range = $(".js-range-slider").data("ionRangeSlider");
-    
-   
-    
-let i=0;
-    setInterval(()=>{
-        
-my_range.update({
-        from: i,
-        to: i++
-    });
-    },500);
-    
-   /*  // 4. Reset range slider to initial values
-    my_range.reset(); */
-    
- /*    // 5. Destroy instance of range slider
-    my_range.destroy(); */
+    function openUploadModal(){
+        initUploadSlider();
+        $("#modal-upload").modal({backdrop: 'static', keyboard: false});
     }
-    createUploadSlider();
+    openUploadModal();
+    
+    function closeUploadModal(){
+        $("#modal-upload").modal('hide');
+    }
+    function initUploadSlider() { 
+       uploadSlider = $(".js-range-slider").data("ionRangeSlider");
+    $(".js-range-slider").ionRangeSlider({
+        min: 0,
+        max: 100,
+        block:true,
+        onChange: function (data) {}
+    });
+    
+    $(".irs-disabled").css({opacity:1});
+    }
+    function updateUploadSlider(from, to) {
+        uploadSlider.update({
+            from: from,
+            to: to
+        });
+    }
+
 });

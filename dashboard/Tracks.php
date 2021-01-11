@@ -117,10 +117,32 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal add -->
+<!-- /.modal add -->
+<div class="modal fade" id="modal-upload">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
 
-                <div class="col-sm-6" >
+                <h4 class="modal-title">Uploading</h4>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12" >
                     <input type="text" class="js-range-slider" name="my_range" value="" />
                 </div>
+                </div>
+            <div class="modal-footer justify-content-between">
+                
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal add -->
+               
 
                 <!-- Default box -->
                 <div class="card">
