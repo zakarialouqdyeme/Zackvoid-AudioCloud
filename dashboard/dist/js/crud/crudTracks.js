@@ -1,7 +1,8 @@
 $(document).ready(async () => {
 
     let dataContainer = $("#dataContainer");
-
+    let uploadSlider;
+    initUploadSlider();
 
 
     function fetchTracksData() {
@@ -20,7 +21,7 @@ $(document).ready(async () => {
             let File = $("#customFile").val();
             let FileBlob = $("#customFile").get(0).files.item(0);
             if (title != "" && description != "" && isPicValid && checkIsAudio(File)) {
-                addTrack(title, description, blobPic, FileBlob,File);
+                addTrack(title, description, blobPic, FileBlob, File);
             }
             if (!isPicValid) {
                 console.log("picInvalid");
@@ -129,7 +130,7 @@ $(document).ready(async () => {
 
     }
 
-    function addTrack(title, description, blobPic, File,FilePath) {
+    function addTrack(title, description, blobPic, File, FilePath) {
 
         var formData = new FormData();
         formData.append("title", title);
@@ -137,19 +138,25 @@ $(document).ready(async () => {
         formData.append("cover", blobPic);
         formData.append("Audiofile", File);
         formData.append("AudiofilePath", FilePath);
-        
+
         $.ajax({
             xhr: function () {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function (evt) {
+                    $("#modal-add").modal("hide");
+                    openUploadModal();
                     if (evt.lengthComputable) {
+                        var lastpercent;
                         if (lastpercent == undefined) {
                             lastpercent = 0;
                         }
                         var percentComplete = (evt.loaded / evt.total) * 100;
-                        console.log("Upload Progress: " + percentComplete);
-                       // updateUploadSlider(lastpercent, percentComplete);
-                        var lastpercent = percentComplete;
+                        console.log("Upload Progress: " + lastpercent);
+                        updateUploadSlider(lastpercent, percentComplete);
+                        lastpercent = percentComplete;
+                        if (percentComplete >= 100) {
+                            closeUploadModal();
+                        }
                     }
                 }, false);
                 return xhr;
@@ -246,7 +253,7 @@ $(document).ready(async () => {
     }
 
 
-    let uploadSlider;
+    
 
     function openUploadModal() {
         initUploadSlider();
