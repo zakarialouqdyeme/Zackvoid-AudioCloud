@@ -18,9 +18,9 @@ $(document).ready(async () => {
             let isPicValid = picture != "data:,";
             let blobPic = await getCroppedBlob();
             let File = $("#customFile").val();
-
+            let FileBlob = $("#customFile").get(0).files.item(0);
             if (title != "" && description != "" && isPicValid && checkIsAudio(File)) {
-                addTrack(title, description, blobPic, File);
+                addTrack(title, description, blobPic, FileBlob,File);
             }
             if (!isPicValid) {
                 console.log("picInvalid");
@@ -128,57 +128,28 @@ $(document).ready(async () => {
         });
 
     }
-    function editProfpassword(id, password) {
-        $.ajax({
-            type: "POST",
-            url: "Requests/editProfPassword.php",
-            data: { id: id, password: password },
-            dataType: "text",
-            success: function (response) {
-                console.log(response);
-            }
-        });
-    }
 
-    function editProfEmail(id, email) {
-        $.ajax({
-            type: "POST",
-            url: "Requests/editProfEmail.php",
-            data: { id: id, email: email },
-            dataType: "text",
-            success: function (response) {
-                console.log(response);
-            }
-        });
-
-    }
-    function editProfschool(id, school_id) {
-        $.ajax({
-            type: "POST",
-            url: "Requests/editProfSchool.php",
-            data: { id: id, schoolId: school_id },
-            dataType: "text",
-            success: function (response) {
-                console.log(response);
-            }
-        });
-
-    }
-    function addTrack(title, description, blobPic, File) {
+    function addTrack(title, description, blobPic, File,FilePath) {
 
         var formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
         formData.append("cover", blobPic);
         formData.append("Audiofile", File);
-
+        formData.append("AudiofilePath", FilePath);
+        
         $.ajax({
             xhr: function () {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
+                        if (lastpercent == undefined) {
+                            lastpercent = 0;
+                        }
                         var percentComplete = (evt.loaded / evt.total) * 100;
                         console.log("Upload Progress: " + percentComplete);
+                       // updateUploadSlider(lastpercent, percentComplete);
+                        var lastpercent = percentComplete;
                     }
                 }, false);
                 return xhr;
@@ -276,26 +247,26 @@ $(document).ready(async () => {
 
 
     let uploadSlider;
-    
-    function openUploadModal(){
+
+    function openUploadModal() {
         initUploadSlider();
-        $("#modal-upload").modal({backdrop: 'static', keyboard: false});
+        $("#modal-upload").modal({ backdrop: 'static', keyboard: false });
     }
-    openUploadModal();
-    
-    function closeUploadModal(){
+    // openUploadModal();
+
+    function closeUploadModal() {
         $("#modal-upload").modal('hide');
     }
-    function initUploadSlider() { 
-       uploadSlider = $(".js-range-slider").data("ionRangeSlider");
-    $(".js-range-slider").ionRangeSlider({
-        min: 0,
-        max: 100,
-        block:true,
-        onChange: function (data) {}
-    });
-    
-    $(".irs-disabled").css({opacity:1});
+    function initUploadSlider() {
+        uploadSlider = $(".js-range-slider").data("ionRangeSlider");
+        $(".js-range-slider").ionRangeSlider({
+            min: 0,
+            max: 100,
+            block: true,
+            onChange: function (data) { }
+        });
+
+        $(".irs-disabled").css({ opacity: 1 });
     }
     function updateUploadSlider(from, to) {
         uploadSlider.update({
