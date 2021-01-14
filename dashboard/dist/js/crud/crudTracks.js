@@ -1,8 +1,7 @@
 $(document).ready(async () => {
 
     let dataContainer = $("#dataContainer");
-    let uploadSlider;
-    initUploadSlider();
+
 
 
     function fetchTracksData() {
@@ -146,15 +145,13 @@ $(document).ready(async () => {
                     $("#modal-add").modal("hide");
                     openUploadModal();
                     if (evt.lengthComputable) {
-                        var lastpercent;
-                        if (lastpercent == undefined) {
-                            lastpercent = 0;
-                        }
+
                         var percentComplete = (evt.loaded / evt.total) * 100;
-                        console.log("Upload Progress: " + lastpercent);
-                        updateUploadSlider(lastpercent, percentComplete);
-                        lastpercent = percentComplete;
+
+                        updateProgressUpload(percentComplete);
+
                         if (percentComplete >= 100) {
+
                             closeUploadModal();
                         }
                     }
@@ -172,6 +169,7 @@ $(document).ready(async () => {
                 if (response == "success") {
                     fetchTracksData();
                     $("#modal-add").modal("hide");
+                    closeUploadModal();
                     showMessage("Track Added", "success", 1500);
                 }
 
@@ -253,33 +251,51 @@ $(document).ready(async () => {
     }
 
 
+
+    function ResetTrackModal() {
+        let title = $("#titleInp").val("");
+        let description = $("#description").val("");
+        let File = $("#customFile").val("");
+        image_crop.croppie('destroy');
+        image_crop.data('cropper',null);
+        $('#upload-image').hide();
+        image_crop = $('#upload-image').croppie({
+            enableExif: true,
+            viewport: {
+                width: 150,
+                height: 150,
+                type: 'circle'
+            },
+            boundary: {
+                width: 300,
+                height: 300
+            }
     
+        });
+        
+    }
 
     function openUploadModal() {
-        initUploadSlider();
-        $("#modal-upload").modal({ backdrop: 'static', keyboard: false });
+        updateProgressUpload(0);
+        $(".modal-backdrop").show();
+        $("#modal-upload").show();
+        $("#modal-upload").modal({ backdrop: "static", keyboard: false });
     }
     // openUploadModal();
 
     function closeUploadModal() {
-        $("#modal-upload").modal('hide');
-    }
-    function initUploadSlider() {
-        uploadSlider = $(".js-range-slider").data("ionRangeSlider");
-        $(".js-range-slider").ionRangeSlider({
-            min: 0,
-            max: 100,
-            block: true,
-            onChange: function (data) { }
-        });
+        $("#modal-upload").delay(2000).fadeOut(450);
+        setTimeout(() => {
+            $(".modal-backdrop").fadeOut();
+        }, 2600);
+        ResetTrackModal();
 
-        $(".irs-disabled").css({ opacity: 1 });
     }
-    function updateUploadSlider(from, to) {
-        uploadSlider.update({
-            from: from,
-            to: to
-        });
+    function updateProgressUpload(val) {
+        var bar2 = document.getElementById('progressUploadBar').ldBar;
+        bar2.set(val);
     }
+
+
 
 });

@@ -20,7 +20,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
+        <link rel="stylesheet" type="text/css" href="dist/css/loading-bar.css"/>
    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -118,7 +118,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                 </div>
                 <!-- /.modal add -->
 <!-- /.modal add -->
-<div class="modal fade" id="modal-upload">
+<div class="modal fade" id="modal-upload" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -129,8 +129,9 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                 </button> -->
             </div>
             <div class="modal-body">
-                <div class="col-sm-12" >
-                    <input type="text" class="js-range-slider" name="my_range" value="" />
+                <div class="col-sm-12 p-5">
+                    <div class="ldBar" id="progressUploadBar"  data-value="0" data-preset="circle" >
+                    </div>
                 </div>
                 </div>
             <div class="modal-footer justify-content-between">
@@ -256,6 +257,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
+    <script type="text/javascript" src="dist/js/loading-bar.js"></script>
     <script src="dist/js/crud/globalScript.js"></script>
     <script src="dist/js/crud/crudTracks.js"></script>
 
