@@ -1,9 +1,11 @@
 <?php
 session_start();
+include '../../../includes/connect.php';
 $target_dir = "../../../uploads/";
 $title = $_POST["title"];
 $description = $_POST["description"];
 $image=$_FILES['cover']['tmp_name'];
+$file=addslashes(file_get_contents($image));
 /* var_dump($_POST); */
 $userName = $_SESSION["username"];
 $id = $_SESSION["id"];
@@ -31,7 +33,15 @@ if ($uploadOk == 0) {
 } else {
     $oldFile = $_FILES['Audiofile']['tmp_name'];
   if (move_uploaded_file($oldFile, $target_file)) {
-    addDataToDataBase();
+
+    $sql2 = "INSERT INTO track(title,description,image,filename,userId) VALUES ('$title','$description','$file','$newFileName','$id')";
+  $result=$conn->query($sql2);
+  if($result){
+    echo 'success';
+    }else{
+      echo $conn->error;
+    }
+
     echo "The file ".$newFileName. " has been uploaded.";
   } else {
     echo "Sorry, there was an error uploading your file.";
@@ -40,7 +50,11 @@ if ($uploadOk == 0) {
 
 function addDataToDataBase(){
 
+  
+ 
 
+
+  
 
 }
 
