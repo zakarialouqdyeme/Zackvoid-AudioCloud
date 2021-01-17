@@ -18,10 +18,14 @@ if($result_num<1){
 
     while($row=$result->fetch_assoc()){
        
+        $spots = $row;
+        foreach($spots as $key=>$value){
+            $newArrData[$key] =  $spots[$key];
+            $newArrData['image'] = base64_encode($spots['image']);
+        }
+        header('Content-type: application/json');
+        echo json_encode($newArrData);
     }
-
-    echo json_encode($row);
-    
 
 }
 

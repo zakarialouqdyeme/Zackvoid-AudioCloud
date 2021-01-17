@@ -1,9 +1,5 @@
 $(document).ready(async () => {
 
-    let dataContainer = $("#dataContainer");
-
-
-
     function fetchTracksData() {
 
         $("#addopenModal").click(() => {
@@ -59,10 +55,10 @@ $(document).ready(async () => {
             url: "Requests/Tracks/fetchTracksData.php",
             dataType: "text",
             success: function (response) {
-                console.log(response);
+                console.log(JSON.parse(response));
                 if (response != "error") {
 
-                    dataContainer.html(response);
+                    
 
                     $(".delete").click((e) => {
                         var id = $(e.currentTarget).data("id");
@@ -78,8 +74,6 @@ $(document).ready(async () => {
                             closeOnCancel: false
                         }).then(function (e) {
                             if (e.isConfirmed) {
-
-
                                 console.log(id);
                                 deleteTrack(id);
                                 fetchTracksData();

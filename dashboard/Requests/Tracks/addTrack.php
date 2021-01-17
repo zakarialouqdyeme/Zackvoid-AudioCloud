@@ -48,14 +48,6 @@ if ($uploadOk == 0) {
   }
 }
 
-function addDataToDataBase(){
 
-  
- 
-
-
-  
-
-}
 
 ?>
