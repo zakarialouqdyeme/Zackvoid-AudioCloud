@@ -180,16 +180,20 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                         <table class="table table-hover text-nowrap">
                                             <thead>
                                                 <tr>
+                                                    <th>id</th>
                                                     <th>Cover</th>
                                                     <th>title</th>
                                                     <th>Descrition</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="dataContainer">
-                                                <tr>
+                                            <tbody id="TracksVue">
+                                                <tr v-for = "data in array">
+                                                    <td spellcheck="false" class="colEdit1" v-bind:data-idt="data.idt">
+                                                       {{data.idt}}
+                                                    </td>
                                                     <td spellcheck="false" class="colEdit1">
-                                                        <img src="dist/img/avatar.png" class="" style="width: 50px;">
+                                                        <img v-bind:src="data.image" class="" style="width: 50px;">
                                                     </td>
                                                     <td spellcheck="false" class="colEdit1">
                                                         The Podcast</td>
@@ -253,6 +257,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     <script src="dist/js/adminlte.min.js"></script>
     <script src="plugins/bootstrap-slider/bootstrap-slider.min.js">
     </script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <script src="plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- AdminLTE for demo purposes -->

@@ -55,11 +55,14 @@ $(document).ready(async () => {
             url: "Requests/Tracks/fetchTracksData.php",
             dataType: "text",
             success: function (response) {
-                console.log(JSON.parse(response));
+                
+                
                 if (response != "error") {
-
-                    
-
+                    new Vue({
+                        el: "#TracksVue",
+                        data:{array:JSON.parse(response)}
+                    });
+                  
                     $(".delete").click((e) => {
                         var id = $(e.currentTarget).data("id");
                         Swal.fire({
@@ -243,7 +246,9 @@ $(document).ready(async () => {
         var checkExtension = file.split('.').pop().toLowerCase();
         return jQuery.inArray(checkExtension, ['wav', 'mp3']) != -1;
     }
-
+    /*  function createVueContainer(el,data){
+       return 
+     } */
 
 
     function ResetTrackModal() {
