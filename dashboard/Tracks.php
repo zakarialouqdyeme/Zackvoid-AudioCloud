@@ -196,15 +196,15 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                                         <img v-bind:src="data.image" class="" style="width: 50px;">
                                                     </td>
                                                     <td spellcheck="false" class="colEdit1">
-                                                        The Podcast</td>
+                                                        {{data.title}}</td>
                                                     <td spellcheck="false" class="colEdit2">
-                                                        podcast 1 test </td>
+                                                        {{data.description}}</td>
 
                                                     <td>
                                                         <button type="button"
-                                                            class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
+                                                            class="btn btn-outline-danger btn-sm delete" v-bind:data-idt="data.idt" v-bind:data-filename="data.filename">supprimer</button>
                                                         <button type="button"
-                                                            class="btn btn-outline-info btn-sm edit">Edit
+                                                            class="btn btn-outline-info btn-sm edit" v-bind:data-idt="data.idt">Edit
                                                         </button>
 
                                                     </td>

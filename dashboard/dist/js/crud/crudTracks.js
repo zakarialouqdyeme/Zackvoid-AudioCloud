@@ -55,19 +55,20 @@ $(document).ready(async () => {
             url: "Requests/Tracks/fetchTracksData.php",
             dataType: "text",
             success: function (response) {
-                
-                
+
+
                 if (response != "error") {
                     new Vue({
                         el: "#TracksVue",
-                        data:{array:JSON.parse(response)}
+                        data: { array: JSON.parse(response) }
                     });
-                  
+
                     $(".delete").click((e) => {
-                        var id = $(e.currentTarget).data("id");
+                       
+                     
                         Swal.fire({
-                            title: "Vous êtes sûr?",
-                            text: "Voullez vous vraiment supprimer",
+                            title: "Confirm?",
+                            text: "If you confirm the track will be deleted from the database",
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
@@ -77,12 +78,13 @@ $(document).ready(async () => {
                             closeOnCancel: false
                         }).then(function (e) {
                             if (e.isConfirmed) {
-                                console.log(id);
-                                deleteTrack(id);
+                                var id = $(e.currentTarget).data("idt");
+                                var filename = $(e.currentTarget).data("filename");
+                                deleteTrack(id,filename);
                                 fetchTracksData();
                                 // console.log(e.isConfirmed)
                             } else {
-                                Swal.fire("Annuller", "suppression Annuller", "error");
+                                Swal.fire("Canceled", "Delete canceled", "error");
                             }
                         });
 
@@ -100,12 +102,12 @@ $(document).ready(async () => {
 
 
 
-    function deleteTrack(id) {
-        console.log(id);
+    function deleteTrack(id, filename) {
+        console.log(filename);
         $.ajax({
             type: "POST",
-            url: "Requests/deleteTrack.php",
-            data: { id: id },
+            url: "Requests/Tracks/deleteTrack.php",
+            data: { id: id, filename: filename },
             dataType: "text",
             success: function (response) {
                 console.log(response);
@@ -256,7 +258,7 @@ $(document).ready(async () => {
         let description = $("#description").val("");
         let File = $("#customFile").val("");
         image_crop.croppie('destroy');
-        image_crop.data('cropper',null);
+        image_crop.data('cropper', null);
         $('#upload-image').hide();
         image_crop = $('#upload-image').croppie({
             enableExif: true,
@@ -269,9 +271,9 @@ $(document).ready(async () => {
                 width: 300,
                 height: 300
             }
-    
+
         });
-        
+
     }
 
     function openUploadModal() {
