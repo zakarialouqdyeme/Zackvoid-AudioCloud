@@ -1,5 +1,19 @@
 $(document).ready(async () => {
 
+
+
+    let vm = new Vue({
+        el: "#TracksVue",
+        data: { array: [] },
+        methods: {
+            update: function (item) {
+                this.array.splice(0);
+                this.array = item;
+               
+            }
+        }
+    });
+    let clickUploadOnce=true;
     function fetchTracksData() {
 
         $("#addopenModal").click(() => {
@@ -16,7 +30,10 @@ $(document).ready(async () => {
             let File = $("#customFile").val();
             let FileBlob = $("#customFile").get(0).files.item(0);
             if (title != "" && description != "" && isPicValid && checkIsAudio(File)) {
-                addTrack(title, description, blobPic, FileBlob, File);
+                if(clickUploadOnce){
+                    addTrack(title, description, blobPic, FileBlob, File);
+                    clickUploadOnce=false;
+                } 
             }
             if (!isPicValid) {
                 console.log("picInvalid");
@@ -58,14 +75,13 @@ $(document).ready(async () => {
 
 
                 if (response != "error") {
-                    new Vue({
-                        el: "#TracksVue",
-                        data: { array: JSON.parse(response) }
-                    });
+                    console.log(JSON.parse(response));
+                    vm.update(JSON.parse(response));
+                    clickUploadOnce=true;
 
                     $(".delete").click((e) => {
-                       
-                     
+
+
                         Swal.fire({
                             title: "Confirm?",
                             text: "If you confirm the track will be deleted from the database",
@@ -80,7 +96,7 @@ $(document).ready(async () => {
                             if (e.isConfirmed) {
                                 var id = $(e.currentTarget).data("idt");
                                 var filename = $(e.currentTarget).data("filename");
-                                deleteTrack(id,filename);
+                                deleteTrack(id, filename);
                                 fetchTracksData();
                                 // console.log(e.isConfirmed)
                             } else {
@@ -152,6 +168,7 @@ $(document).ready(async () => {
                         if (percentComplete >= 100) {
 
                             closeUploadModal();
+                            fetchTracksData();
                         }
                     }
                 }, false);
@@ -186,7 +203,7 @@ $(document).ready(async () => {
         viewport: {
             width: 150,
             height: 150,
-            type: 'circle'
+            type: 'square'
         },
         boundary: {
             width: 300,
