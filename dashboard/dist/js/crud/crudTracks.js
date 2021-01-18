@@ -9,11 +9,11 @@ $(document).ready(async () => {
             update: function (item) {
                 this.array.splice(0);
                 this.array = item;
-               
             }
         }
     });
-    let clickUploadOnce=true;
+
+    let clickUploadOnce = true;
     function fetchTracksData() {
 
         $("#addopenModal").click(() => {
@@ -30,10 +30,10 @@ $(document).ready(async () => {
             let File = $("#customFile").val();
             let FileBlob = $("#customFile").get(0).files.item(0);
             if (title != "" && description != "" && isPicValid && checkIsAudio(File)) {
-                if(clickUploadOnce){
+                if (clickUploadOnce) {
                     addTrack(title, description, blobPic, FileBlob, File);
-                    clickUploadOnce=false;
-                } 
+                    clickUploadOnce = false;
+                }
             }
             if (!isPicValid) {
                 console.log("picInvalid");
@@ -71,17 +71,17 @@ $(document).ready(async () => {
             type: "POST",
             url: "Requests/Tracks/fetchTracksData.php",
             dataType: "text",
-            success: function (response) {
+            success: async function (response) {
 
 
                 if (response != "error") {
-                    console.log(JSON.parse(response));
-                    vm.update(JSON.parse(response));
-                    clickUploadOnce=true;
+                
+                    await vm.update(JSON.parse(response));
+                    clickUploadOnce = true;
 
                     $(".delete").click((e) => {
-
-
+                        var id = $(e.currentTarget).data("idt");
+                        var filename = $(e.currentTarget).data("filename");
                         Swal.fire({
                             title: "Confirm?",
                             text: "If you confirm the track will be deleted from the database",
@@ -94,17 +94,18 @@ $(document).ready(async () => {
                             closeOnCancel: false
                         }).then(function (e) {
                             if (e.isConfirmed) {
-                                var id = $(e.currentTarget).data("idt");
-                                var filename = $(e.currentTarget).data("filename");
+                               
                                 deleteTrack(id, filename);
                                 fetchTracksData();
-                                // console.log(e.isConfirmed)
+                             
                             } else {
                                 Swal.fire("Canceled", "Delete canceled", "error");
                             }
                         });
 
                     });
+
+
                 } else {
                     showMessage("Tracks Load Error", "error", 1500);
                 }
@@ -119,7 +120,7 @@ $(document).ready(async () => {
 
 
     function deleteTrack(id, filename) {
-        console.log(filename);
+        
         $.ajax({
             type: "POST",
             url: "Requests/Tracks/deleteTrack.php",
