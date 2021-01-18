@@ -13,13 +13,17 @@ $(document).ready(async () => {
         }
     });
 
+
     let clickUploadOnce = true;
+
+
     function fetchTracksData() {
 
         $("#addopenModal").click(() => {
             $("#modal-add").modal();
 
         });
+
         $("#upload").click(async () => {
 
             let title = $("#titleInp").val();
@@ -266,24 +270,30 @@ $(document).ready(async () => {
         var checkExtension = file.split('.').pop().toLowerCase();
         return jQuery.inArray(checkExtension, ['wav', 'mp3']) != -1;
     }
-    /*  function createVueContainer(el,data){
-       return 
-     } */
-
+    
 
     function ResetTrackModal() {
+
         let title = $("#titleInp").val("");
         let description = $("#description").val("");
         let File = $("#customFile").val("");
+
+
         image_crop.croppie('destroy');
         image_crop.data('cropper', null);
+
+
         $('#upload-image').hide();
+
+
         image_crop = $('#upload-image').croppie({
+
             enableExif: true,
+
             viewport: {
                 width: 150,
                 height: 150,
-                type: 'circle'
+                type: 'square'
             },
             boundary: {
                 width: 300,
@@ -295,18 +305,24 @@ $(document).ready(async () => {
     }
 
     function openUploadModal() {
+
         updateProgressUpload(0);
+
         $(".modal-backdrop").show();
         $("#modal-upload").show();
         $("#modal-upload").modal({ backdrop: "static", keyboard: false });
+
     }
-    // openUploadModal();
+   
 
     function closeUploadModal() {
+
         $("#modal-upload").delay(2000).fadeOut(450);
+
         setTimeout(() => {
             $(".modal-backdrop").fadeOut();
         }, 2600);
+
         ResetTrackModal();
 
     }
