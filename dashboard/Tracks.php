@@ -103,7 +103,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                     <div class="custom-file">
 
                                         <input type="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                        <label class="custom-file-label" id="customFileLabel" for="customFile">Choose Audio File</label>
                                     </div>
                                 </div>
                             </div>

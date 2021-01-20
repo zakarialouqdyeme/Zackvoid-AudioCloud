@@ -9,8 +9,8 @@ $(document).ready(async () => {
             update: function (item) {
                 this.array.splice(0);
                 this.array = item;
-                if(item == ""){
-                    this.array=[];
+                if (item == null) {
+                    this.array = [];
                 }
             }
         }
@@ -25,6 +25,15 @@ $(document).ready(async () => {
         $("#addopenModal").click(() => {
             $("#modal-add").modal();
 
+        });
+
+        $("#customFile").on("change", (e) => {
+
+            let filename = $(e.target).val().replace(/C:\\fakepath\\/i, '');
+            if ($(e.target).val() == "") {
+                filename = getDefaultAudioLabelName();
+            }
+            $("#customFileLabel").text(filename);
         });
 
         $("#upload").click(async () => {
@@ -79,12 +88,14 @@ $(document).ready(async () => {
             url: "Requests/Tracks/fetchTracksData.php",
             dataType: "text",
             success: async function (response) {
-                console.log(response);
+
 
                 if (response != "error") {
-                
+
                     await vm.update(JSON.parse(response));
                     clickUploadOnce = true;
+
+
 
                     $(".delete").click((e) => {
                         var id = $(e.currentTarget).data("idt");
@@ -101,10 +112,10 @@ $(document).ready(async () => {
                             closeOnCancel: false
                         }).then(function (e) {
                             if (e.isConfirmed) {
-                               
+
                                 deleteTrack(id, filename);
                                 fetchTracksData();
-                             
+
                             } else {
                                 Swal.fire("Canceled", "Delete canceled", "error");
                             }
@@ -113,8 +124,8 @@ $(document).ready(async () => {
                     });
 
 
-                } else if(response == "error") {
-                    await vm.update("");
+                } else if (response == "error") {
+                    await vm.update(null);
                     //showMessage("Tracks not Found", "question", 1500);
                 }
             }
@@ -128,7 +139,7 @@ $(document).ready(async () => {
 
 
     function deleteTrack(id, filename) {
-        
+
         $.ajax({
             type: "POST",
             url: "Requests/Tracks/deleteTrack.php",
@@ -136,11 +147,11 @@ $(document).ready(async () => {
             dataType: "text",
             success: function (response) {
                 console.log(response);
-                if(response == "DBDS"){
+                if (response == "DBDS") {
                     fetchTracksData();
-                    showMessage("Track Delete Success","success",1500);
-                }else{
-                    showMessage("Track Delete Error","error",1500);
+                    showMessage("Track Delete Success", "success", 1500);
+                } else {
+                    showMessage("Track Delete Error", "error", 1500);
                 }
             }
         });
@@ -280,14 +291,14 @@ $(document).ready(async () => {
         var checkExtension = file.split('.').pop().toLowerCase();
         return jQuery.inArray(checkExtension, ['wav', 'mp3']) != -1;
     }
-    
+
 
     function ResetTrackModal() {
 
         let title = $("#titleInp").val("");
         let description = $("#description").val("");
         let File = $("#customFile").val("");
-
+        resetAudioFileLabelName();
 
         image_crop.croppie('destroy');
         image_crop.data('cropper', null);
@@ -323,7 +334,7 @@ $(document).ready(async () => {
         $("#modal-upload").modal({ backdrop: "static", keyboard: false });
 
     }
-   
+
 
     function closeUploadModal() {
 
@@ -341,6 +352,12 @@ $(document).ready(async () => {
         bar2.set(val);
     }
 
+    function resetAudioFileLabelName() {
+        $("#customFileLabel").text(getDefaultAudioLabelName());
+    }
 
+    function getDefaultAudioLabelName() {
+        return "Choose Audio File";
+    }
 
 });
