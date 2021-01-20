@@ -183,7 +183,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                                     <th>id</th>
                                                     <th>Cover</th>
                                                     <th>title</th>
-                                                    <th>Descrition</th>
+                                                    <th>Description</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
