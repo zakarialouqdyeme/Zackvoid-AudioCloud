@@ -9,6 +9,9 @@ $(document).ready(async () => {
             update: function (item) {
                 this.array.splice(0);
                 this.array = item;
+                if(item == ""){
+                    this.array=[];
+                }
             }
         }
     });
@@ -76,7 +79,7 @@ $(document).ready(async () => {
             url: "Requests/Tracks/fetchTracksData.php",
             dataType: "text",
             success: async function (response) {
-
+                console.log(response);
 
                 if (response != "error") {
                 
@@ -110,8 +113,9 @@ $(document).ready(async () => {
                     });
 
 
-                } else {
-                    showMessage("Tracks Load Error", "error", 1500);
+                } else if(response == "error") {
+                    await vm.update("");
+                    //showMessage("Tracks not Found", "question", 1500);
                 }
             }
         });
@@ -132,6 +136,12 @@ $(document).ready(async () => {
             dataType: "text",
             success: function (response) {
                 console.log(response);
+                if(response == "DBDS"){
+                    fetchTracksData();
+                    showMessage("Track Delete Success","success",1500);
+                }else{
+                    showMessage("Track Delete Error","error",1500);
+                }
             }
         });
     }
