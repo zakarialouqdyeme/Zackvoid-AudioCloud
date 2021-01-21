@@ -27,6 +27,8 @@ $(document).ready(async () => {
 
         });
 
+        
+
         $("#customFile").on("change", (e) => {
 
             let filename = $(e.target).val().replace(/C:\\fakepath\\/i, '');
@@ -95,7 +97,10 @@ $(document).ready(async () => {
                     await vm.update(JSON.parse(response));
                     clickUploadOnce = true;
 
-
+                    $(".edit").click(() => {
+                        $("#modal-edit").modal();
+                        
+                    });
 
                     $(".delete").click((e) => {
                         var id = $(e.currentTarget).data("idt");
