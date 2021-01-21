@@ -184,6 +184,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                                     <th>Cover</th>
                                                     <th>title</th>
                                                     <th>Description</th>
+                                                    <th>Audio</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -198,8 +199,14 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                                                     <td spellcheck="false" class="colEdit1">
                                                         {{data.title}}</td>
                                                     <td spellcheck="false" class="colEdit2">
-                                                        {{data.description}}</td>
-
+                                                        {{data.description}}
+                                                    </td>
+                                                    <td>
+                                                        <audio controls>
+                                                            <source v-bind:src="'../uploads/'+data.filename" type="audio/mpeg">
+                                                          Your browser does not support the audio element.
+                                                          </audio>
+                                                    </td>
                                                     <td>
                                                         <button type="button"
                                                             class="btn btn-outline-danger btn-sm delete" v-bind:data-idt="data.idt" v-bind:data-filename="data.filename">supprimer</button>
