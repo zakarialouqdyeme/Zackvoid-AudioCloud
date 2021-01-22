@@ -159,6 +159,13 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
             <div class="modal-body">
 
                 <div class="row">
+                    
+                    <div class="col-12 text-center mb-1">
+                        <label for="titleInpEdit">Current cover image</label>
+                    </div>
+                    <div class="col-12 text-center mb-3">
+                        <img src="" id="imgPreviewEdit" class="img-thumbnail">
+                    </div>
                     <div class="col-12">
                         <div id="upload-image"></div>
                     </div>

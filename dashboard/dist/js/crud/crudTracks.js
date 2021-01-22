@@ -27,7 +27,7 @@ $(document).ready(async () => {
 
         });
 
-        
+
 
         $("#customFile").on("change", (e) => {
 
@@ -97,9 +97,24 @@ $(document).ready(async () => {
                     await vm.update(JSON.parse(response));
                     clickUploadOnce = true;
 
-                    $(".edit").click(() => {
-                        $("#modal-edit").modal();
-                        
+                    $(".edit").click((e) => {
+                        let id = $(e.currentTarget).data("idt");
+                        $.ajax({
+                            type: "POST",
+                            url: "Requests/Tracks/getEditTrackModalData.php",
+                            data: { id: id },
+                            dataType: "text",
+                            success: function (response) {
+                                let data = JSON.parse(response);
+
+                                $("#imgPreviewEdit").attr("src", "data:image/png;base64," + data[0].image);
+                                $("#titleInpEdit").val(data[0].title);
+                                $("#descriptionEdit").val(data[0].description);
+                                $("#modal-edit").modal();
+                            }
+                        });
+
+
                     });
 
                     $(".delete").click((e) => {
