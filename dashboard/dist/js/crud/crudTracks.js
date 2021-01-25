@@ -109,43 +109,40 @@ $(document).ready(async () => {
                                 ResetTrackEditModal();
                                 $("#imgPreviewEdit").attr("src", "data:image/png;base64," + data[0].image);
                                 $("#titleInpEdit").val(data[0].title);
-                                $("#descriptionEdit").val(data[0].description);                 
+                                $("#descriptionEdit").val(data[0].description);
                                 $("#modal-edit").modal();
-                               
-                                $("#editSubmit").click((e)=>{
-                                    console.log(data);
 
-                                    let picture = await getCroppedImageEdit();
+                                $("#editSubmit").click((e) => {
+                                   
+
+                                    let picture = getCroppedImageEdit();
+                                    let blobPic = getCroppedBlobEdit();
+                                    let idt = data[0].idt;
+                                    let title = data[0].title;
+                                    let description = data[0].description;
 
                                     let isPicValid = picture != "data:,";
-                                    
-                                    let blobPic = await getCroppedBlob();
-                                    if(isPicValid){
 
-                                        editTrackWithPic(await getCroppedBlobEdit(),data[0].title,data[0].description);
+                                    if (!isPicValid && title != "" && description != "") {
+                                        editTrackWithPic(idt ,blobPic, title, description);
+                                    }
 
+                                    if (isPicValid && title != "" && description != "") {
+                                        editTrack(idt, title, description);
                                     }
-                                    if (!isPicValid) {
-                                        
-                                        $("#editCoverImage").addClass("btn-danger");
-                                        $("#editCoverImage").removeClass("btn-info");
-                                    } else {
-                                        $("#editCoverImage").removeClass("btn-danger");
-                                        $("#editCoverImage").addClass("btn-info");
-                                    }
-                        
+
                                     if (title == "") {
                                         $("#titleInpEdit").addClass("is-invalid");
                                     } else {
                                         $("#titleInpEdit").removeClass("is-invalid");
                                     }
-                        
+
                                     if (description == "") {
                                         $("#description").addClass("is-invalid");
                                     } else {
                                         $("#description").removeClass("is-invalid");
                                     }
-                                   
+
                                 });
 
                             }
@@ -214,11 +211,24 @@ $(document).ready(async () => {
         });
     }
 
-    function editProfName(id, name) {
+    function editTrackWithPic(idt, image, title, description) {
         $.ajax({
             type: "POST",
-            url: "Requests/editProfName.php",
-            data: { id: id, name: name },
+            url: "Requests/Tracks/editTrackWithPic.php",
+            data: { idt:idt, image: image, title: title, description: description },
+            dataType: "text",
+            success: function (response) {
+                console.log(response);
+            }
+        });
+
+    }
+
+    function editTrack(idt, title, description) {
+        $.ajax({
+            type: "POST",
+            url: "Requests/Tracks/editTrack.php",
+            data: { idt:idt, title: title, description: description },
             dataType: "text",
             success: function (response) {
                 console.log(response);
@@ -296,7 +306,7 @@ $(document).ready(async () => {
     });
     $('#upload-image').hide();
 
-    
+
 
     $('#images').on('change', function () {
         var reader = new FileReader();
@@ -424,11 +434,11 @@ $(document).ready(async () => {
 
         let title = $("#titleInpEdit").val("");
         let description = $("#descriptionEdit").val("");
-        
+
 
         image_cropEdit.croppie('destroy');
         image_cropEdit.data('cropper', null);
-        
+
         $("#imgPreviewEdit").show();
         $('#upload-image-edit').hide();
 
