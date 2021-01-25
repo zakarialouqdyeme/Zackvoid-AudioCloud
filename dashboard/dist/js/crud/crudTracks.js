@@ -106,11 +106,17 @@ $(document).ready(async () => {
                             dataType: "text",
                             success: function (response) {
                                 let data = JSON.parse(response);
-
+                                ResetTrackEditModal();
                                 $("#imgPreviewEdit").attr("src", "data:image/png;base64," + data[0].image);
                                 $("#titleInpEdit").val(data[0].title);
-                                $("#descriptionEdit").val(data[0].description);
+                                $("#descriptionEdit").val(data[0].description);                 
                                 $("#modal-edit").modal();
+                               
+                                $("#editSubmit").click((e)=>{
+                                    console.log(data);
+                                   
+                                });
+
                             }
                         });
 
@@ -259,6 +265,8 @@ $(document).ready(async () => {
     });
     $('#upload-image').hide();
 
+    
+
     $('#images').on('change', function () {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -276,12 +284,12 @@ $(document).ready(async () => {
         reader.readAsDataURL(this.files[0]);
     });
 
-    image_crop.on('update.croppie', function (ev, cropData) {
+    /* image_crop.on('update.croppie', function (ev, cropData) {
 
-        /* console.log(getCroppedBlob()); */
+         console.log(getCroppedBlob()); 
 
 
-    });
+    }); */
 
     function showMessage(message, icon, time) {
         Swal.fire({
@@ -345,6 +353,86 @@ $(document).ready(async () => {
 
     }
 
+    $("#editCoverImage").click(() => {
+        $("#imagesEdit").click();
+    });
+
+    $('#imagesEdit').on('change', function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            image_cropEdit.croppie('bind', {
+                url: e.target.result
+            }).then(function () {
+                console.log('jQuery bind complete');
+                $('.cr-slider').attr({ 'min': 0.3000, 'max': 1.5000 });
+                $('#upload-image-edit').show();
+                $("#imgPreviewEdit").hide();
+
+            });
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    image_cropEdit = $('#upload-image-edit').croppie({
+        enableExif: true,
+        viewport: {
+            width: 150,
+            height: 150,
+            type: 'square'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+
+    });
+
+    $('#upload-image-edit').hide();
+
+    function ResetTrackEditModal() {
+
+        let title = $("#titleInpEdit").val("");
+        let description = $("#descriptionEdit").val("");
+        
+
+        image_cropEdit.croppie('destroy');
+        image_cropEdit.data('cropper', null);
+        
+        $("#imgPreviewEdit").show();
+        $('#upload-image-edit').hide();
+
+
+        image_cropEdit = $('#upload-image-edit').croppie({
+
+            enableExif: true,
+
+            viewport: {
+                width: 150,
+                height: 150,
+                type: 'square'
+            },
+            boundary: {
+                width: 300,
+                height: 300
+            }
+
+        });
+
+    }
+
+    async function getCroppedImageEdit() {
+        return await image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        });
+    }
+    async function getCroppedBlobEdit() {
+        return await image_crop.croppie('result', {
+            type: 'blob',
+            size: 'viewport'
+        });
+    }
+
     function openUploadModal() {
 
         updateProgressUpload(0);
@@ -367,6 +455,7 @@ $(document).ready(async () => {
         ResetTrackModal();
 
     }
+    
     function updateProgressUpload(val) {
         var bar2 = document.getElementById('progressUploadBar').ldBar;
         bar2.set(val);

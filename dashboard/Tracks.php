@@ -167,10 +167,10 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                         <img src="" id="imgPreviewEdit" class="img-thumbnail">
                     </div>
                     <div class="col-12">
-                        <div id="upload-image"></div>
+                        <div id="upload-image-edit"></div>
                     </div>
                     <div class="col-12">
-                        <input type="file" id="images" style="display: none;">
+                        <input type="file" id="imagesEdit" style="display: none;">
                     </div>
                     <div class="col-12 text-center mb-2">
                         <button class="btn btn-info crop_image margin-auto" id="editCoverImage">COVER
@@ -190,7 +190,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="upload">Edit</button>
+                <button type="button" class="btn btn-primary" id="editSubmit">Edit</button>
             </div>
         </div>
         <!-- /.modal-content -->
