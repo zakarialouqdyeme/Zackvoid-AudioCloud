@@ -114,6 +114,37 @@ $(document).ready(async () => {
                                
                                 $("#editSubmit").click((e)=>{
                                     console.log(data);
+
+                                    let picture = await getCroppedImageEdit();
+
+                                    let isPicValid = picture != "data:,";
+                                    
+                                    let blobPic = await getCroppedBlob();
+                                    if(isPicValid){
+
+                                        editTrackWithPic(await getCroppedBlobEdit(),data[0].title,data[0].description);
+
+                                    }
+                                    if (!isPicValid) {
+                                        
+                                        $("#editCoverImage").addClass("btn-danger");
+                                        $("#editCoverImage").removeClass("btn-info");
+                                    } else {
+                                        $("#editCoverImage").removeClass("btn-danger");
+                                        $("#editCoverImage").addClass("btn-info");
+                                    }
+                        
+                                    if (title == "") {
+                                        $("#titleInpEdit").addClass("is-invalid");
+                                    } else {
+                                        $("#titleInpEdit").removeClass("is-invalid");
+                                    }
+                        
+                                    if (description == "") {
+                                        $("#description").addClass("is-invalid");
+                                    } else {
+                                        $("#description").removeClass("is-invalid");
+                                    }
                                    
                                 });
 
@@ -421,13 +452,13 @@ $(document).ready(async () => {
     }
 
     async function getCroppedImageEdit() {
-        return await image_crop.croppie('result', {
+        return await image_cropEdit.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         });
     }
     async function getCroppedBlobEdit() {
-        return await image_crop.croppie('result', {
+        return await image_cropEdit.croppie('result', {
             type: 'blob',
             size: 'viewport'
         });
@@ -455,7 +486,7 @@ $(document).ready(async () => {
         ResetTrackModal();
 
     }
-    
+
     function updateProgressUpload(val) {
         var bar2 = document.getElementById('progressUploadBar').ldBar;
         bar2.set(val);
