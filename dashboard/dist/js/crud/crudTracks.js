@@ -12,6 +12,7 @@ $(document).ready(async () => {
                 if (item == null) {
                     this.array = [];
                 }
+                console.log("update");
             }
         }
     });
@@ -93,18 +94,18 @@ $(document).ready(async () => {
 
 
                 if (response != "error") {
-
-                    await vm.update(JSON.parse(response));
+                    let data = JSON.parse(response);
+                    await vm.update(data);
                     clickUploadOnce = true;
 
-                    $(".edit").click((e) => {
+                    $(".edit").click(async (e) => {
                         let id = $(e.currentTarget).data("idt");
                         $.ajax({
                             type: "POST",
                             url: "Requests/Tracks/getEditTrackModalData.php",
                             data: { id: id },
                             dataType: "text",
-                            success: function (response) {
+                            success: async function (response) {
                                 let data = JSON.parse(response);
                                 ResetTrackEditModal();
                                 $("#imgPreviewEdit").attr("src", "data:image/png;base64," + data[0].image);
@@ -112,22 +113,21 @@ $(document).ready(async () => {
                                 $("#descriptionEdit").val(data[0].description);
                                 $("#modal-edit").modal();
 
-                                $("#editSubmit").click((e) => {
+                                $("#editSubmit").click(async (e) => {
                                    
-
-                                    let picture = getCroppedImageEdit();
-                                    let blobPic = getCroppedBlobEdit();
+                                    let picture = await getCroppedImageEdit();
+                                    let blobPic = await getCroppedBlobEdit();
                                     let idt = data[0].idt;
-                                    let title = data[0].title;
-                                    let description = data[0].description;
+                                    let title = $("#titleInpEdit").val();
+                                    let description = $("#descriptionEdit").val();
 
                                     let isPicValid = picture != "data:,";
-
-                                    if (!isPicValid && title != "" && description != "") {
+                                    //console.log(await getCroppedImageEdit());
+                                    if (isPicValid && title != "" && description != "") {
                                         editTrackWithPic(idt ,blobPic, title, description);
                                     }
 
-                                    if (isPicValid && title != "" && description != "") {
+                                    if (!isPicValid && title != "" && description != "") {
                                         editTrack(idt, title, description);
                                     }
 
@@ -212,26 +212,43 @@ $(document).ready(async () => {
     }
 
     function editTrackWithPic(idt, image, title, description) {
+        var formData = new FormData();
+        formData.append("idt", idt);
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("image", image);
         $.ajax({
             type: "POST",
             url: "Requests/Tracks/editTrackWithPic.php",
-            data: { idt:idt, image: image, title: title, description: description },
+            data: formData,
             dataType: "text",
+            processData: false,
+            contentType: false,
             success: function (response) {
-                console.log(response);
+                if(response == "Edit1"){
+                    console.log(response);
+                    fetchTracksData();
+                    closeEditModal();
+                }
+                
             }
         });
 
     }
 
     function editTrack(idt, title, description) {
+        
         $.ajax({
             type: "POST",
             url: "Requests/Tracks/editTrack.php",
             data: { idt:idt, title: title, description: description },
             dataType: "text",
             success: function (response) {
-                console.log(response);
+                if(response == "Edit1"){
+                    console.log(response);
+                    fetchTracksData();
+                    closeEditModal();
+                }
             }
         });
 
@@ -256,12 +273,13 @@ $(document).ready(async () => {
 
                         var percentComplete = (evt.loaded / evt.total) * 100;
 
-                        updateProgressUpload(percentComplete);
-
+                        updateProgressUpload(Math.round(percentComplete));
+                        console.log(Math.round(percentComplete));
                         if (percentComplete >= 100) {
-
+                           
+                            
                             closeUploadModal();
-                            fetchTracksData();
+                            
                         }
                     }
                 }, false);
@@ -276,13 +294,15 @@ $(document).ready(async () => {
             success: function (response) {
                 console.log(response);
                 if (response == "success") {
-                    fetchTracksData();
+                    
                     $("#modal-add").modal("hide");
                     closeUploadModal();
                     showMessage("Track Added", "success", 1500);
                 }
 
             }
+        }).done(function (e) {
+            fetchTracksData();
         });
     }
 
@@ -494,6 +514,12 @@ $(document).ready(async () => {
         }, 2600);
 
         ResetTrackModal();
+
+    }
+    function closeEditModal() {
+
+        $("#modal-edit").modal('hide');
+
 
     }
 
