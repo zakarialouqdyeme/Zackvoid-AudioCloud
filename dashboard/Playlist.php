@@ -133,19 +133,15 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody id="dataContainer">
+                      <tbody  id="TracksVue">
                         <tr>
 
-                          <td contenteditable="true" spellcheck="false" class="colEdit1">zakariae louqdyeme</td>
+                          <td>zakariae louqdyeme</td>
                           <td>
                             <div class="form-group">
                              
-                              <select multiple="" class="form-control" disabled>
+                              <select multiple = "" class = "form-control" disabled>
                                 <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
                               </select>
                           </td>
                   </div>
@@ -198,7 +194,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
   <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-  <script src="dist/js/crud/crudSchool.js"></script>
+  <script src="dist/js/crud/crudPlaylist.js"></script>
   <script src="dist/js/crud/globalScript.js"></script>
   <?php
  include 'includes/GlobalScripts.php';
