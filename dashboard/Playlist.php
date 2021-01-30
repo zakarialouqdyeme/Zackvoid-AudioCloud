@@ -133,10 +133,10 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody  id="TracksVue">
-                        <tr>
+                      <tbody  id="playlistVue">
+                        <tr v-for = "data in array">
 
-                          <td>zakariae louqdyeme</td>
+                          <td>{{data.name}}</td>
                           <td>
                             <div class="form-group">
                              
@@ -191,6 +191,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
   <script src="plugins/sweetalert2/sweetalert2.min.js"></script>

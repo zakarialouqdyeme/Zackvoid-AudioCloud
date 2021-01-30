@@ -18,13 +18,13 @@ $(document).ready(async ()=>{
     function fetchPlaylistData(){
         $.ajax({
             type: "POST",
-            url: "Requests/Tracks/fetchPlaylistData.php",
+            url: "Requests/Playlist/fetchPlaylistData.php",
             dataType: "text",
             success: async function (response) {
-
-
+            
                 if (response != "error") {
                     let data = JSON.parse(response);
+                    console.log(data);
                     await vm.update(data);
                     clickUploadOnce = true;
 
@@ -101,5 +101,6 @@ $(document).ready(async ()=>{
             }
         });
     }
+    fetchPlaylistData();
 
 });
