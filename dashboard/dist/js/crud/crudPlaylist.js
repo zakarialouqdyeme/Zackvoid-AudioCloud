@@ -21,7 +21,7 @@ $(document).ready(async ()=>{
             url: "Requests/Playlist/fetchPlaylistData.php",
             dataType: "text",
             success: async function (response) {
-            
+            console.log(response);
                 if (response != "error") {
                     let data = JSON.parse(response);
                     console.log(data);
