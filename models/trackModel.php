@@ -6,9 +6,9 @@ class track {
     public $title;
 
     public function __construct($idp,$idt,$title){
-    $this->$idp = $idp;
-    $this->$idt = $idt;
-    $this->$title = $title;
+    $this->idp = $idp;
+    $this->idt = $idt;
+    $this->title = $title;
     }
     
     

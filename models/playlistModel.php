@@ -6,15 +6,11 @@ class playlist {
     public $userId;
     public $tracks;
 
-    public function __construct($idp,$name,$userId,array $tracks){
-    $this->$idp = $idp;
-    $this->$name = $name;
-    $this->$userId = $userId;
-    $this->$tracks = $tracks;
-    }
-    
-    public function addTracks($elem){
-      $tracks[]=$elem;
+    public function __construct(array $data){
+      $this->idp = $data["idp"];
+      $this->name = $data["name"];
+      $this->userId = $data["userId"];
+      $this->tracks = array();
     }
     
 
