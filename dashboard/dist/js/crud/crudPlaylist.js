@@ -11,6 +11,9 @@ $(document).ready(async ()=>{
                     this.array = [];
                 }
                
+            },
+            getTracks: function(){
+                return this.array[0].tracks[0];
             }
         }
     });
@@ -21,11 +24,12 @@ $(document).ready(async ()=>{
             url: "Requests/Playlist/fetchPlaylistData.php",
             dataType: "text",
             success: async function (response) {
-            console.log(response);
+           
                 if (response != "error") {
                     let data = JSON.parse(response);
-                    console.log(data);
+                    
                     await vm.update(data);
+                  //  console.log(vm.getTracks());
                     clickUploadOnce = true;
 
                     $(".edit").click(async (e) => {

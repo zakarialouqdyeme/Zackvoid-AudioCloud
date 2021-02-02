@@ -141,7 +141,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                             <div class="form-group">
                              
                               <select multiple = "" class = "form-control" disabled>
-                                <option>option 1</option>
+                                <option v-for = "data in getTracks()">{{data.title}}</option>
                               </select>
                           </td>
                   </div>
