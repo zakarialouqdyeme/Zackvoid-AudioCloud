@@ -148,7 +148,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
 
                   <td>
                     <button type="button" class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
-
+                    <button type="button"class="btn btn-outline-info btn-sm edit" v-bind:data-idt="data.idp">Edit</button>
                   </td>
                   </tr>
 

@@ -27,10 +27,8 @@ $(document).ready(async ()=>{
            
                 if (response != "error") {
                     let data = JSON.parse(response);
-                    
                     await vm.update(data);
-                  //  console.log(vm.getTracks());
-                    clickUploadOnce = true;
+                   
 
                     $(".edit").click(async (e) => {
                         let id = $(e.currentTarget).data("idt");
@@ -100,7 +98,6 @@ $(document).ready(async ()=>{
 
                 } else if (response == "error") {
                     await vm.update(null);
-                    //showMessage("Tracks not Found", "question", 1500);
                 }
             }
         });
