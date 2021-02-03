@@ -117,7 +117,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal add -->
-<!-- /.modal add -->
+<!-- /.modal upload -->
 <div class="modal fade" id="modal-upload" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -142,7 +142,7 @@ if(!isset($_SESSION["id"])) header('Location:../Auth/login.php');
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal add -->
+<!-- /.modal upload -->
                
 
 <!-- /.modal edit -->

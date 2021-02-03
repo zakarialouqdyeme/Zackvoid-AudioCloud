@@ -19,6 +19,12 @@ $(document).ready(async ()=>{
     });
 
     function fetchPlaylistData(){
+
+        $("#addOpenModal").unbind("click").bind("click",()=>{
+        $("#modal-addPlayList").modal();
+        });
+
+
         $.ajax({
             type: "POST",
             url: "Requests/Playlist/fetchPlaylistData.php",
@@ -29,7 +35,6 @@ $(document).ready(async ()=>{
                     let data = JSON.parse(response);
                     await vm.update(data);
                    
-
                     $(".edit").click(async (e) => {
                         let id = $(e.currentTarget).data("idt");
                         $.ajax({

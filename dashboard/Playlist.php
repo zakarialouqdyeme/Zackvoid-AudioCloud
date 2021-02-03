@@ -56,7 +56,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
       <!-- Main content -->
       <section class="content">
         <!-- /.modal add -->
-        <div class="modal fade" id="modal-add">
+        <div class="modal fade" id="modal-addPlayList">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -66,15 +66,28 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                 </button>
               </div>
               <div class="modal-body">
-                <div class="form-group">
-                  <label for="nameInp">Nom</label>
-                  <input type="text" class="form-control" id="nameInp" placeholder="Nom de l'école">
-                </div>
 
+                <div class="form-group">
+                  <label for="nameInp">Name:</label>
+                  <input type="text" class="form-control" id="nameInp" placeholder="Playlist Name">
+                </div>
+                <div class="form-group">
+                <label>Tracks:</label>
+                             <select multiple = "" class = "form-control" >
+                               <option>test</option>
+                               <option>test</option>
+                               <option>test</option>
+                               <option>test</option>
+                               <option>test</option>
+                               <option>test</option>
+                               <option>test</option>
+                             </select>
+                             <small class="form-text text-muted">Note: hold ctrl or cmd for multiple choice.</small>
+                           </div>
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="add">Ajouter</button>
+                <button type="button" class="btn btn-primary" id="add">Add</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -88,7 +101,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <button type="button" class="btn  btn-outline-primary btn-sm" id="addopenModal">Add Playlist</button>
+            <button type="button" class="btn  btn-outline-primary btn-sm" id="addOpenModal">Add Playlist</button>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -143,6 +156,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                               <select multiple = "" class = "form-control" disabled>
                                 <option v-for = "data in getTracks()">{{data.title}}</option>
                               </select>
+                            </div>
                           </td>
                   </div>
 
