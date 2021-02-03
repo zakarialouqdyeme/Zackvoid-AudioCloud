@@ -73,21 +73,21 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                 </div>
                 <div class="form-group">
                 <label>Tracks:</label>
-                             <select multiple = "" class = "form-control" >
-                               <option>test</option>
-                               <option>test</option>
-                               <option>test</option>
-                               <option>test</option>
-                               <option>test</option>
-                               <option>test</option>
-                               <option>test</option>
+                             <select multiple = "" class = "form-control" id="tracks" >
+                               <option value="1">test</option>
+                               <option value="2">test</option>
+                               <option value="3">test</option>
+                               <option value="4">test</option>
+                               <option value="5">test</option>
+                               <option value="6">test</option>
+                               <option value="7">test</option>
                              </select>
                              <small class="form-text text-muted">Note: hold ctrl or cmd for multiple choice.</small>
                            </div>
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="add">Add</button>
+                <button type="button" class="btn btn-primary" id="addPlaylist">Add</button>
               </div>
             </div>
             <!-- /.modal-content -->

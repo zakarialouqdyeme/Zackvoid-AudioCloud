@@ -2,7 +2,7 @@ $(document).ready(async ()=>{
 
     let vm = new Vue({
         el: "#playlistVue",
-        data: { array: [] },
+        data: { array: [], userTracks:[] },
         methods: {
             update: function (item) {
                 this.array.splice(0);
@@ -14,6 +14,16 @@ $(document).ready(async ()=>{
             },
             getTracks: function(){
                 return this.array[0].tracks[0];
+            },
+            getUserTracks: function(){
+                return this.userTracks;
+            },
+            updateUserTracks: function(item){
+                this.userTracks.splice(0);
+                this.userTracks = item;
+                if (item == null) {
+                    this.userTracks = [];
+                }
             }
         }
     });
@@ -21,6 +31,8 @@ $(document).ready(async ()=>{
     function fetchPlaylistData(){
 
         $("#addOpenModal").unbind("click").bind("click",()=>{
+        //let userTracks = await loadUserTracks();
+
         $("#modal-addPlayList").modal();
         });
 
@@ -34,7 +46,20 @@ $(document).ready(async ()=>{
                 if (response != "error") {
                     let data = JSON.parse(response);
                     await vm.update(data);
-                   
+
+                    $("#addPlaylist").unbind("click").bind("click",()=>{
+                        
+                         
+
+                        let name = $("#nameInp").val();
+                        let tracks = $("#tracks").val();
+                        
+                        if(tracks.length != 0){
+                            console.table(tracks);
+                        }
+
+                     });
+
                     $(".edit").click(async (e) => {
                         let id = $(e.currentTarget).data("idt");
                         $.ajax({
@@ -107,5 +132,16 @@ $(document).ready(async ()=>{
         });
     }
     fetchPlaylistData();
+
+
+    async function loadUserTracks(){
+        let requestInit = {
+            credentials: 'include',
+            method: 'get',
+        };
+
+        let data = await fetch("Requests/Playlist/getUserTracks.php", requestInit);
+        return data.json();
+    }
 
 });
