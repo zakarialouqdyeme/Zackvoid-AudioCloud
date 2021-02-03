@@ -45,10 +45,9 @@ $(document).ready(async ()=>{
                                 $("#descriptionEdit").val(data[0].description);
                                 $("#modal-edit").modal();
 
+                                
                                 $("#editSubmit").click(async (e) => {
                                    
-                                  
-
                                     if (title == "") {
                                         $("#titleInpEdit").addClass("is-invalid");
                                     } else {

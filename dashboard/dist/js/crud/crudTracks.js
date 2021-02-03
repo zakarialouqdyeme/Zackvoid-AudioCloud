@@ -19,7 +19,7 @@ $(document).ready(async () => {
 
 
     let clickUploadOnce = true;
-
+    let EditOnce = true;
 
     function fetchTracksData() {
 
@@ -100,6 +100,8 @@ $(document).ready(async () => {
 
                     $(".edit").click(async (e) => {
                         let id = $(e.currentTarget).data("idt");
+                       
+
                         $.ajax({
                             type: "POST",
                             url: "Requests/Tracks/getEditTrackModalData.php",
@@ -108,16 +110,20 @@ $(document).ready(async () => {
                             success: async function (response) {
                                 let data = JSON.parse(response);
                                 ResetTrackEditModal();
+                                
                                 $("#imgPreviewEdit").attr("src", "data:image/png;base64," + data[0].image);
                                 $("#titleInpEdit").val(data[0].title);
                                 $("#descriptionEdit").val(data[0].description);
+                                //$(".edit").attr("data-idt",data[0].idt);
+                               
                                 $("#modal-edit").modal();
-
+                               
                                 $("#editSubmit").click(async (e) => {
-                                   
+                                    
                                     let picture = await getCroppedImageEdit();
                                     let blobPic = await getCroppedBlobEdit();
                                     let idt = data[0].idt;
+                               
                                     let title = $("#titleInpEdit").val();
                                     let description = $("#descriptionEdit").val();
 
@@ -184,6 +190,7 @@ $(document).ready(async () => {
                 }
             }
         });
+        EditOnce = true;
     }
 
     fetchTracksData();
@@ -235,7 +242,7 @@ $(document).ready(async () => {
         });
 
     }
-
+    
     function editTrack(idt, title, description) {
         
         $.ajax({
@@ -244,10 +251,14 @@ $(document).ready(async () => {
             data: { idt:idt, title: title, description: description },
             dataType: "text",
             success: function (response) {
+                console.log(response);
                 if(response == "Edit1"){
-                    console.log(response);
-                    fetchTracksData();
+                   
                     closeEditModal();
+                   
+                       fetchTracksData();
+                  
+                    
                 }
             }
         });
@@ -452,8 +463,8 @@ $(document).ready(async () => {
 
     function ResetTrackEditModal() {
 
-        let title = $("#titleInpEdit").val("");
-        let description = $("#descriptionEdit").val("");
+        $("#titleInpEdit").val("");
+       $("#descriptionEdit").val("");
 
 
         image_cropEdit.croppie('destroy');

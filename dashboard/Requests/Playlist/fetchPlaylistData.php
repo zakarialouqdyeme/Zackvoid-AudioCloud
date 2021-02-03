@@ -31,7 +31,6 @@ if($result_num<1){
             array_push($tracksTempArray,new track($row["idp"],$row["idt"],$row["title"]));
         }
         
-       
     }
     array_push($tempPlaylist->tracks,$tracksTempArray);
     array_push($playlists,$tempPlaylist);

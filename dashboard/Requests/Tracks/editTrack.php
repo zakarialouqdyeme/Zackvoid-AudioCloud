@@ -2,6 +2,7 @@
 include '../../../includes/connect.php';
 
 $idt = $_POST['idt'];
+
 $title = $_POST['title'];
 $description = $_POST['description'];
 
