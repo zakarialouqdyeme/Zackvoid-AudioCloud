@@ -17,7 +17,7 @@ $(document).ready(async () => {
         }
     });
 
-
+    
     let clickUploadOnce = true;
 
 
@@ -281,7 +281,7 @@ $(document).ready(async () => {
                     if (evt.lengthComputable) {
 
                         var percentComplete = (evt.loaded / evt.total) * 100;
-
+                       
                         updateProgressUpload(Math.round(percentComplete));
                         console.log(Math.round(percentComplete));
                         if (percentComplete >= 100) {
@@ -531,10 +531,10 @@ $(document).ready(async () => {
 
 
     }
-
+    
     function updateProgressUpload(val) {
         var bar2 = document.getElementById('progressUploadBar').ldBar;
-        bar2.set(val);
+        bar2.set(val,false);
     }
 
     function resetAudioFileLabelName() {
