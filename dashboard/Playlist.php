@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once(dirname(__FILE__)."/".'../config.php');
-if(!isset($_SESSION["id"])) header('Location:login.php'); 
- ?>
+require_once(dirname(__FILE__) . "/" . '../config.php');
+if (!isset($_SESSION["id"])) header('Location:login.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,13 +10,12 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    <?php if(true) echo Config::$websiteName ?> - Playlists
+    <?php if (true) echo Config::$websiteName ?> - Playlists
   </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
@@ -28,14 +27,14 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
   <div class="wrapper">
     <!-- Navbar -->
     <?php
- include 'includes/nav.php';
- ?>
+    include 'includes/nav.php';
+    ?>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <?php
- include 'includes/sidebar.php';
- ?>
+    include 'includes/sidebar.php';
+    ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -58,7 +57,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
         <!-- /.modal add -->
         <div class="modal fade" id="modal-addPlayList">
           <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content" id="tracksVue" >
               <div class="modal-header">
                 <h4 class="modal-title">Add Playlist</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -72,18 +71,13 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                   <input type="text" class="form-control" id="nameInp" placeholder="Playlist Name">
                 </div>
                 <div class="form-group">
-                <label>Tracks:</label>
-                             <select multiple = "" class = "form-control" id="tracks" >
-                               <option value="1">test</option>
-                               <option value="2">test</option>
-                               <option value="3">test</option>
-                               <option value="4">test</option>
-                               <option value="5">test</option>
-                               <option value="6">test</option>
-                               <option value="7">test</option>
-                             </select>
-                             <small class="form-text text-muted">Note: hold ctrl or cmd for multiple choice.</small>
-                           </div>
+                  <label>Tracks:</label>
+                  <select multiple="" class="form-control" id="tracks">
+                    <option v-for="data in getUserTracks()" v-bind:value="data.idt">{{data.title}}</option>
+
+                  </select>
+                  <small class="form-text text-muted">Note: hold ctrl or cmd for multiple choice.</small>
+                </div>
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -146,15 +140,15 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody  id="playlistVue">
-                        <tr v-for = "data in array">
+                      <tbody id="playlistVue">
+                        <tr v-for="data in array">
 
                           <td>{{data.name}}</td>
                           <td>
                             <div class="form-group">
-                             
-                              <select multiple = "" class = "form-control" disabled>
-                                <option v-for = "data in getTracks()">{{data.title}}</option>
+
+                              <select multiple="" class="form-control" disabled>
+                                <option v-for="data in getTracks()">{{data.title}}</option>
                               </select>
                             </div>
                           </td>
@@ -162,7 +156,7 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
 
                   <td>
                     <button type="button" class="btn btn-outline-danger btn-sm supprimer">supprimer</button>
-                    <button type="button"class="btn btn-outline-info btn-sm edit" v-bind:data-idt="data.idp">Edit</button>
+                    <button type="button" class="btn btn-outline-info btn-sm edit" v-bind:data-idt="data.idp">Edit</button>
                   </td>
                   </tr>
 
@@ -188,8 +182,8 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
   <!-- /.content-wrapper -->
 
   <?php
- include 'includes/footer.php';
- ?>
+  include 'includes/footer.php';
+  ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -212,8 +206,8 @@ if(!isset($_SESSION["id"])) header('Location:login.php');
   <script src="dist/js/crud/crudPlaylist.js"></script>
   <script src="dist/js/crud/globalScript.js"></script>
   <?php
- include 'includes/GlobalScripts.php';
- ?>
+  include 'includes/GlobalScripts.php';
+  ?>
 </body>
 
 </html>

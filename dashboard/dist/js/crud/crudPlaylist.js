@@ -14,25 +14,34 @@ $(document).ready(async ()=>{
             },
             getTracks: function(){
                 return this.array[0].tracks[0];
-            },
-            getUserTracks: function(){
-                return this.userTracks;
-            },
-            updateUserTracks: function(item){
+            }
+        }
+    });
+
+    let vm2 = new Vue({
+        el: "#tracksVue",
+        data: { userTracks:[] },
+        methods: {
+            updateUserTracks:async function(item){
                 this.userTracks.splice(0);
                 this.userTracks = item;
                 if (item == null) {
                     this.userTracks = [];
                 }
-            }
+                
+            },
+            getUserTracks: function(){
+                return this.userTracks;
+            },
         }
     });
 
-    function fetchPlaylistData(){
+    async function fetchPlaylistData(){
 
-        $("#addOpenModal").unbind("click").bind("click",()=>{
-        //let userTracks = await loadUserTracks();
-
+        $("#addOpenModal").unbind("click").bind("click",async ()=>{
+       let userTracks =  await loadUserTracks();
+       console.log(userTracks);
+        await vm2.updateUserTracks(userTracks);
         $("#modal-addPlayList").modal();
         });
 
@@ -45,6 +54,7 @@ $(document).ready(async ()=>{
            
                 if (response != "error") {
                     let data = JSON.parse(response);
+                    console.table(data);
                     await vm.update(data);
 
                     $("#addPlaylist").unbind("click").bind("click",()=>{
@@ -54,8 +64,20 @@ $(document).ready(async ()=>{
                         let name = $("#nameInp").val();
                         let tracks = $("#tracks").val();
                         
-                        if(tracks.length != 0){
+                        if(tracks.length != 0 && name != ""){
                             console.table(tracks);
+                        }
+
+                        if(tracks.length == 0){
+                            $("#tracks").addClass("is-invalid");
+                        }else{
+                            $("#tracks").removeClass("is-invalid");
+                        }
+
+                        if(name == ""){
+                            $("#nameInp").addClass("is-invalid");
+                        }else{
+                            $("#nameInp").removeClass("is-invalid");
                         }
 
                      });
@@ -141,6 +163,7 @@ $(document).ready(async ()=>{
         };
 
         let data = await fetch("Requests/Playlist/getUserTracks.php", requestInit);
+        
         return data.json();
     }
 
