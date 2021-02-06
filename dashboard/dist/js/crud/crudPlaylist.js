@@ -13,14 +13,9 @@ $(document).ready(async () => {
 
             },
             getTracks: function () {
-
-
-                let data;
-                if (this.array.length > this.tracksIndex) {
-                    data = this.array[this.tracksIndex].tracks[0];
-                }
+                
+                let data = this.array[this.tracksIndex].tracks[0];
                 this.tracksIndex++;
-
                 return data;
 
             }
