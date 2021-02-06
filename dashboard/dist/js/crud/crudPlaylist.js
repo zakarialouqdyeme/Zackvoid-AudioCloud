@@ -2,7 +2,7 @@ $(document).ready(async ()=>{
 
     let vm = new Vue({
         el: "#playlistVue",
-        data: { array: [], userTracks:[] },
+        data: { array: []},
         methods: {
             update: function (item) {
                 this.array.splice(0);
@@ -13,7 +13,9 @@ $(document).ready(async ()=>{
                
             },
             getTracks: function(){
-                return this.array[0].tracks[0];
+                
+                return this.array;
+                
             }
         }
     });
@@ -54,7 +56,7 @@ $(document).ready(async ()=>{
            
                 if (response != "error") {
                     let data = JSON.parse(response);
-                    console.table(data);
+                    console.log(data);
                     await vm.update(data);
 
                     $("#addPlaylist").unbind("click").bind("click",()=>{
@@ -65,7 +67,7 @@ $(document).ready(async ()=>{
                         let tracks = $("#tracks").val();
                         
                         if(tracks.length != 0 && name != ""){
-                            console.table(tracks);
+                            addPlaylist(tracks,name);
                         }
 
                         if(tracks.length == 0){
@@ -165,6 +167,21 @@ $(document).ready(async ()=>{
         let data = await fetch("Requests/Playlist/getUserTracks.php", requestInit);
         
         return data.json();
+    }
+
+    async function addPlaylist(tracks,name){
+
+        $.ajax({
+            type: "POST",
+            url: "Requests/Playlist/addPlaylist.php",
+            data: { tracks: tracks, name: name },
+            dataType: "text",
+            success: function (response) {
+                if(response == "success"){
+                    fetchPlaylistData();
+                }
+            }
+        });
     }
 
 });

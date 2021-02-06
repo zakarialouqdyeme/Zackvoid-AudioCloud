@@ -4,9 +4,9 @@ include '../../../includes/connect.php';
 include '../../../models/playlistModel.php';
 include '../../../models/trackModel.php';
 $userId = $_SESSION["id"];
-$playlists = array();
-$tracksTempArray=array();
 
+  $playlists = array();
+  $tempPlaylist = array();
 $sql="select * from playlist where userId = '$userId' ";
 $result=$conn->query($sql);
 $result_num=$result->num_rows;
@@ -18,7 +18,9 @@ if($result_num<1){
 }else{
  
     while($row=$result->fetch_assoc()){
-       
+      
+        $tracksTempArray = array();
+
         $tempPlaylist = new playlist(array("idp"=>$row["idp"],"name"=>$row["name"],"userId"=>$row["userId"]));
         
         $idp = $row["idp"];
@@ -27,15 +29,25 @@ if($result_num<1){
         $result2_num=$result2->num_rows;
 
         if($result2_num > 0){
+            
             while($row=$result2->fetch_assoc()){
             array_push($tracksTempArray,new track($row["idp"],$row["idt"],$row["title"]));
+            
         }
-        
-    }
-    array_push($tempPlaylist->tracks,$tracksTempArray);
-    array_push($playlists,$tempPlaylist);
-    echo json_encode($playlists);
-}
+        }
 
-}
-?>
+        array_push($tempPlaylist->tracks,$tracksTempArray);
+        array_push($playlists,$tempPlaylist);
+
+    }
+
+    }
+    
+    
+
+    
+    
+    echo json_encode($playlists);
+
+
+
