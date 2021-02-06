@@ -1,8 +1,8 @@
-$(document).ready(async ()=>{
+$(document).ready(async () => {
 
     let vm = new Vue({
         el: "#playlistVue",
-        data: { array: []},
+        data: { array: [], tracksIndex: 0 },
         methods: {
             update: function (item) {
                 this.array.splice(0);
@@ -10,41 +10,49 @@ $(document).ready(async ()=>{
                 if (item == null) {
                     this.array = [];
                 }
-               
+
             },
-            getTracks: function(){
-                
-                return this.array;
-                
+            getTracks: function () {
+
+
+                let data;
+                if (this.array.length > this.tracksIndex) {
+                    data = this.array[this.tracksIndex].tracks[0];
+                }
+                this.tracksIndex++;
+
+                return data;
+
             }
+
         }
     });
 
     let vm2 = new Vue({
         el: "#tracksVue",
-        data: { userTracks:[] },
+        data: { userTracks: [] },
         methods: {
-            updateUserTracks:async function(item){
+            updateUserTracks: async function (item) {
                 this.userTracks.splice(0);
                 this.userTracks = item;
                 if (item == null) {
                     this.userTracks = [];
                 }
-                
+
             },
-            getUserTracks: function(){
+            getUserTracks: function () {
                 return this.userTracks;
             },
         }
     });
 
-    async function fetchPlaylistData(){
+    async function fetchPlaylistData() {
 
-        $("#addOpenModal").unbind("click").bind("click",async ()=>{
-       let userTracks =  await loadUserTracks();
-       console.log(userTracks);
-        await vm2.updateUserTracks(userTracks);
-        $("#modal-addPlayList").modal();
+        $("#addOpenModal").unbind("click").bind("click", async () => {
+            let userTracks = await loadUserTracks();
+            console.log(userTracks);
+            await vm2.updateUserTracks(userTracks);
+            $("#modal-addPlayList").modal();
         });
 
 
@@ -53,36 +61,36 @@ $(document).ready(async ()=>{
             url: "Requests/Playlist/fetchPlaylistData.php",
             dataType: "text",
             success: async function (response) {
-           
+
                 if (response != "error") {
                     let data = JSON.parse(response);
                     console.log(data);
                     await vm.update(data);
 
-                    $("#addPlaylist").unbind("click").bind("click",()=>{
-                        
-                         
+                    $("#addPlaylist").unbind("click").bind("click", () => {
+
+
 
                         let name = $("#nameInp").val();
                         let tracks = $("#tracks").val();
-                        
-                        if(tracks.length != 0 && name != ""){
-                            addPlaylist(tracks,name);
+
+                        if (tracks.length != 0 && name != "") {
+                            addPlaylist(tracks, name);
                         }
 
-                        if(tracks.length == 0){
+                        if (tracks.length == 0) {
                             $("#tracks").addClass("is-invalid");
-                        }else{
+                        } else {
                             $("#tracks").removeClass("is-invalid");
                         }
 
-                        if(name == ""){
+                        if (name == "") {
                             $("#nameInp").addClass("is-invalid");
-                        }else{
+                        } else {
                             $("#nameInp").removeClass("is-invalid");
                         }
 
-                     });
+                    });
 
                     $(".edit").click(async (e) => {
                         let id = $(e.currentTarget).data("idt");
@@ -99,9 +107,9 @@ $(document).ready(async ()=>{
                                 $("#descriptionEdit").val(data[0].description);
                                 $("#modal-edit").modal();
 
-                                
+
                                 $("#editSubmit").click(async (e) => {
-                                   
+
                                     if (title == "") {
                                         $("#titleInpEdit").addClass("is-invalid");
                                     } else {
@@ -158,18 +166,18 @@ $(document).ready(async ()=>{
     fetchPlaylistData();
 
 
-    async function loadUserTracks(){
+    async function loadUserTracks() {
         let requestInit = {
             credentials: 'include',
             method: 'get',
         };
 
         let data = await fetch("Requests/Playlist/getUserTracks.php", requestInit);
-        
+
         return data.json();
     }
 
-    async function addPlaylist(tracks,name){
+    async function addPlaylist(tracks, name) {
 
         $.ajax({
             type: "POST",
@@ -177,7 +185,7 @@ $(document).ready(async ()=>{
             data: { tracks: tracks, name: name },
             dataType: "text",
             success: function (response) {
-                if(response == "success"){
+                if (response == "success") {
                     fetchPlaylistData();
                 }
             }
