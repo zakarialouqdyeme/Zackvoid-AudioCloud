@@ -192,9 +192,18 @@ $(document).ready(async () => {
             success: function (response) {
                 if (response == "success") {
                     fetchPlaylistData();
+                    closeAddModal();
                 }
             }
         });
+    }
+    function resetAddModal(){
+        $("#nameInp").val("");
+        vm2.updateUserTracks(null);
+    }
+    function closeAddModal(){
+        resetAddModal();
+        $("#modal-addPlayList").modal('hide');
     }
 
 });
