@@ -1,8 +1,21 @@
 $(document).ready(async () => {
 
+
+    Array.prototype.next = function() {
+        return this[this.current++];
+    };
+    Array.prototype.prev = function() {
+        return this[this.current--];
+    };
+    Array.prototype.reset = function() {
+       this.current = 0;
+    };
+    Array.prototype.current = 0;
+    
+
     let vm = new Vue({
         el: "#playlistVue",
-        data: { array: [], tracksIndex: 0 },
+        data: { array: []},
         methods: {
             update: function (item) {
                 this.array.splice(0);
@@ -13,12 +26,9 @@ $(document).ready(async () => {
 
             },
             getTracks: function () {
-                
-                let data = this.array[this.tracksIndex].tracks[0];
-                this.tracksIndex++;
-                return data;
-
-            }
+                return this.array.next().tracks[0];
+            },
+            
 
         }
     });
