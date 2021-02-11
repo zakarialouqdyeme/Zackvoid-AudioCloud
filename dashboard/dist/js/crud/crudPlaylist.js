@@ -135,12 +135,12 @@ $(document).ready(async () => {
 
                     });
 
-                    $(".delete").click((e) => {
-                        var id = $(e.currentTarget).data("idt");
-                        var filename = $(e.currentTarget).data("filename");
-                        Swal.fire({
+                    $(".delete").unbind("click").on("click",async (e) => {
+                        let id = $(e.currentTarget).data("idp");
+                            
+                       await Swal.fire({
                             title: "Confirm?",
-                            text: "If you confirm the pl will be deleted from the database",
+                            text: "If you confirm the playlist will be deleted from the database",
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
@@ -150,9 +150,9 @@ $(document).ready(async () => {
                             closeOnCancel: false
                         }).then(function (e) {
                             if (e.isConfirmed) {
-
-                                deleteTrack(id, filename);
-                                fetchTracksData();
+                               
+                                deletePlaylist(id);
+                                
 
                             } else {
                                 Swal.fire("Canceled", "Delete canceled", "error");
@@ -197,6 +197,23 @@ $(document).ready(async () => {
             }
         });
     }
+    async function deletePlaylist(id) {
+
+        $.ajax({
+            type: "POST",
+            url: "Requests/Playlist/deletePlaylist.php",
+            data: { id : id },
+            dataType: "text",
+            success: function (response) {
+               
+                if (response == "success") {
+                    vm.update(null)
+                    fetchPlaylistData();
+                }
+            }
+        });
+    }
+
     function resetAddModal(){
         $("#nameInp").val("");
         vm2.updateUserTracks(null);
