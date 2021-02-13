@@ -66,36 +66,38 @@ $(document).ready(async () => {
             url: "Requests/Playlist/fetchPlaylistData.php",
             dataType: "text",
             success: async function (response) {
+                $("#addPlaylist").unbind("click").bind("click", () => {
 
+                        
+
+                    let name = $("#nameInp").val();
+                    let tracks = $("#tracks").val();
+
+                    if (tracks.length != 0 && name != "") {
+                        addPlaylist(tracks, name);
+                    }
+
+                    if (tracks.length == 0) {
+                        $("#tracks").addClass("is-invalid");
+                    } else {
+                        $("#tracks").removeClass("is-invalid");
+                    }
+
+                    if (name == "") {
+                        $("#nameInp").addClass("is-invalid");
+                    } else {
+                        $("#nameInp").removeClass("is-invalid");
+                    }
+
+                });
                 if (response != "error") {
-                    let data = JSON.parse(response);
+                    console.log(response);
+                    let data =  JSON.parse(response);
+
                     console.log(data);
                     await vm.update(data);
 
-                    $("#addPlaylist").unbind("click").bind("click", () => {
-
-
-
-                        let name = $("#nameInp").val();
-                        let tracks = $("#tracks").val();
-
-                        if (tracks.length != 0 && name != "") {
-                            addPlaylist(tracks, name);
-                        }
-
-                        if (tracks.length == 0) {
-                            $("#tracks").addClass("is-invalid");
-                        } else {
-                            $("#tracks").removeClass("is-invalid");
-                        }
-
-                        if (name == "") {
-                            $("#nameInp").addClass("is-invalid");
-                        } else {
-                            $("#nameInp").removeClass("is-invalid");
-                        }
-
-                    });
+                    
 
                     $(".edit").click(async (e) => {
                         let id = $(e.currentTarget).data("idt");
@@ -164,6 +166,7 @@ $(document).ready(async () => {
 
                 } else if (response == "error") {
                     await vm.update(null);
+                    console.log("error");
                 }
             }
         });

@@ -40,14 +40,16 @@ if($result_num<1){
         array_push($playlists,$tempPlaylist);
 
     }
-
+    echo json_encode($playlists);
     }
     
     
 
+  
+        
     
     
-    echo json_encode($playlists);
+    
 
 
 
