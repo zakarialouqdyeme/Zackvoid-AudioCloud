@@ -90,6 +90,43 @@ if (!isset($_SESSION["id"])) header('Location:login.php');
         </div>
         <!-- /.modal add -->
 
+           <!-- /.modal edit -->
+           <div class="modal fade" id="modal-editPlayList">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="tracksVue" >
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Playlist</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                <div class="form-group">
+                  <label for="nameInpEdit">Name:</label>
+                  <input type="text" class="form-control" id="nameInp" placeholder="Playlist Name">
+                </div>
+                
+                <div class="form-group">
+                  <label>Tracks:</label>
+                  <select multiple="" class="form-control" id="tracksEdit">
+                    <option v-for="data in getUserTracks()" v-bind:value = "data.idt">{{data.title}}</option>
+                  </select>
+                  <small class="form-text text-muted">Note: hold ctrl or cmd for multiple choice.</small>
+                </div>
+
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addPlaylist">Add</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal edit -->
+
 
 
         <!-- Default box -->

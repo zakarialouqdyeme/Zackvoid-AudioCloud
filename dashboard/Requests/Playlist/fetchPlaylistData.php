@@ -5,8 +5,8 @@ include '../../../models/playlistModel.php';
 include '../../../models/trackModel.php';
 $userId = $_SESSION["id"];
 
-  $playlists = array();
-  $tempPlaylist = array();
+$playlists = array();
+$tempPlaylist = array();
 $sql="select * from playlist where userId = '$userId' ";
 $result=$conn->query($sql);
 $result_num=$result->num_rows;

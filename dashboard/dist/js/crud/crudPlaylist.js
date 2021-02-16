@@ -99,23 +99,25 @@ $(document).ready(async () => {
 
                     
 
-                    $(".edit").click(async (e) => {
-                        let id = $(e.currentTarget).data("idt");
+                    $(".edit").unbind("click").bind("click", async (e) => {
+                        let id = $(e.currentTarget).data("idp");
+                       
                         $.ajax({
                             type: "POST",
-                            url: "Requests/Tracks/getEditPlaylistModalData.php",
+                            url: "Requests/Playlist/getEditPlaylistModalData.php",
                             data: { id: id },
                             dataType: "text",
                             success: async function (response) {
                                 let data = JSON.parse(response);
-                                ResetTrackEditModal();
+                                console.log(data);
+                                /* ResetPlaylistEditModal();
                                 $("#imgPreviewEdit").attr("src", "data:image/png;base64," + data[0].image);
                                 $("#titleInpEdit").val(data[0].title);
                                 $("#descriptionEdit").val(data[0].description);
-                                $("#modal-edit").modal();
+                                $("#modal-edit").modal(); */
 
 
-                                $("#editSubmit").click(async (e) => {
+                               /*  $("#editSubmit").click(async (e) => {
 
                                     if (title == "") {
                                         $("#titleInpEdit").addClass("is-invalid");
@@ -129,7 +131,7 @@ $(document).ready(async () => {
                                         $("#description").removeClass("is-invalid");
                                     }
 
-                                });
+                                }); */
 
                             }
                         });
@@ -226,4 +228,7 @@ $(document).ready(async () => {
         $("#modal-addPlayList").modal('hide');
     }
 
+    function  ResetPlaylistEditModal(){
+        
+    }
 });
