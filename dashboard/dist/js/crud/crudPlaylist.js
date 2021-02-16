@@ -110,14 +110,26 @@ $(document).ready(async () => {
                             success: async function (response) {
                                 let data = JSON.parse(response);
                                 console.log(data);
-                                /* ResetPlaylistEditModal();
-                                $("#imgPreviewEdit").attr("src", "data:image/png;base64," + data[0].image);
-                                $("#titleInpEdit").val(data[0].title);
-                                $("#descriptionEdit").val(data[0].description);
-                                $("#modal-edit").modal(); */
+                                ResetPlaylistEditModal();
+                               
+                                $("#nameInpEdit").val(data.name);
+                                let userTracks = await loadUserTracks();
+                                userTracks.forEach(elem => {
+
+                                    if(data.tracks.includes(elem)){
+                                        $("#playlistEditSelect").append(`<option selected value = '${elem.idt}'>${elem.title}</option>`);
+                                    }
+                                    else{
+                                        $("#playlistEditSelect").append(`<option value = '${elem.idt}'>${elem.title}</option>`);
+                                    }
+                                    
+                                });
+                              
+                                
+                                $("#modal-editPlayList").modal(); 
 
 
-                               /*  $("#editSubmit").click(async (e) => {
+                                 $("#editSubmit").click(async (e) => {
 
                                     if (title == "") {
                                         $("#titleInpEdit").addClass("is-invalid");
@@ -131,7 +143,7 @@ $(document).ready(async () => {
                                         $("#description").removeClass("is-invalid");
                                     }
 
-                                }); */
+                                });
 
                             }
                         });
@@ -229,6 +241,7 @@ $(document).ready(async () => {
     }
 
     function  ResetPlaylistEditModal(){
-        
+        $("#playlistEditSelect").html("");
+        $("#nameInpEdit").val("");
     }
 });

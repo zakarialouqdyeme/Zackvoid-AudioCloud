@@ -104,13 +104,13 @@ if (!isset($_SESSION["id"])) header('Location:login.php');
 
                 <div class="form-group">
                   <label for="nameInpEdit">Name:</label>
-                  <input type="text" class="form-control" id="nameInp" placeholder="Playlist Name">
+                  <input type="text" class="form-control" id="nameInpEdit" placeholder="Playlist Name">
                 </div>
-                
+
                 <div class="form-group">
                   <label>Tracks:</label>
-                  <select multiple="" class="form-control" id="tracksEdit">
-                    <option v-for="data in getUserTracks()" v-bind:value = "data.idt">{{data.title}}</option>
+                  <select multiple="" class="form-control" id="playlistEditSelect">
+                  
                   </select>
                   <small class="form-text text-muted">Note: hold ctrl or cmd for multiple choice.</small>
                 </div>
@@ -118,7 +118,7 @@ if (!isset($_SESSION["id"])) header('Location:login.php');
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addPlaylist">Add</button>
+                <button type="button" class="btn btn-primary" id="addPlaylist">Edit</button>
               </div>
             </div>
             <!-- /.modal-content -->
