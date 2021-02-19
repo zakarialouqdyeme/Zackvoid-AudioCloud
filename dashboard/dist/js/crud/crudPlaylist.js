@@ -1,21 +1,21 @@
 $(document).ready(async () => {
 
 
-    Array.prototype.next = function() {
+    Array.prototype.next = function () {
         return this[this.current++];
     };
-    Array.prototype.prev = function() {
+    Array.prototype.prev = function () {
         return this[this.current--];
     };
-    Array.prototype.reset = function() {
-       this.current = 0;
+    Array.prototype.reset = function () {
+        this.current = 0;
     };
     Array.prototype.current = 0;
-    
+
 
     let vm = new Vue({
         el: "#playlistVue",
-        data: { array: []},
+        data: { array: [] },
         methods: {
             update: function (item) {
                 this.array.splice(0);
@@ -28,7 +28,7 @@ $(document).ready(async () => {
             getTracks: function () {
                 return this.array.next().tracks[0];
             },
-            
+
 
         }
     });
@@ -68,7 +68,7 @@ $(document).ready(async () => {
             success: async function (response) {
                 $("#addPlaylist").unbind("click").bind("click", () => {
 
-                        
+
 
                     let name = $("#nameInp").val();
                     let tracks = $("#tracks").val();
@@ -92,16 +92,16 @@ $(document).ready(async () => {
                 });
                 if (response != "error") {
                     console.log(response);
-                    let data =  JSON.parse(response);
+                    let data = JSON.parse(response);
 
                     console.log(data);
                     await vm.update(data);
 
-                    
+
 
                     $(".edit").unbind("click").bind("click", async (e) => {
                         let id = $(e.currentTarget).data("idp");
-                       
+
                         $.ajax({
                             type: "POST",
                             url: "Requests/Playlist/getEditPlaylistModalData.php",
@@ -109,27 +109,33 @@ $(document).ready(async () => {
                             dataType: "text",
                             success: async function (response) {
                                 let data = JSON.parse(response);
-                                console.log(data);
+                                //console.log(data);
                                 ResetPlaylistEditModal();
-                               
+
                                 $("#nameInpEdit").val(data.name);
                                 let userTracks = await loadUserTracks();
+                               
                                 userTracks.forEach(elem => {
 
-                                    if(data.tracks.includes(elem)){
-                                        $("#playlistEditSelect").append(`<option selected value = '${elem.idt}'>${elem.title}</option>`);
-                                    }
-                                    else{
-                                        $("#playlistEditSelect").append(`<option value = '${elem.idt}'>${elem.title}</option>`);
-                                    }
                                     
+
+                                    if (searchSelectedTracks(data.tracks[0],elem)) {
+
+                                        $("#playlistEditSelect").append(`<option selected = true value = '${elem.idt}'>${elem.title}</option>`);
+                                    }
+                                    else {
+                                        $("#playlistEditSelect").append(`<option  value = '${elem.idt}'>${elem.title}</option>`);
+                                    }
+
+
+
                                 });
-                              
-                                
-                                $("#modal-editPlayList").modal(); 
 
 
-                                 $("#editSubmit").click(async (e) => {
+                                $("#modal-editPlayList").modal();
+
+
+                                $("#editSubmit").click(async (e) => {
 
                                     if (title == "") {
                                         $("#titleInpEdit").addClass("is-invalid");
@@ -151,10 +157,10 @@ $(document).ready(async () => {
 
                     });
 
-                    $(".delete").unbind("click").on("click",async (e) => {
+                    $(".delete").unbind("click").on("click", async (e) => {
                         let id = $(e.currentTarget).data("idp");
-                            
-                       await Swal.fire({
+
+                        await Swal.fire({
                             title: "Confirm?",
                             text: "If you confirm the playlist will be deleted from the database",
                             type: "warning",
@@ -166,9 +172,9 @@ $(document).ready(async () => {
                             closeOnCancel: false
                         }).then(function (e) {
                             if (e.isConfirmed) {
-                               
+
                                 deletePlaylist(id);
-                                
+
 
                             } else {
                                 Swal.fire("Canceled", "Delete canceled", "error");
@@ -219,10 +225,10 @@ $(document).ready(async () => {
         $.ajax({
             type: "POST",
             url: "Requests/Playlist/deletePlaylist.php",
-            data: { id : id },
+            data: { id: id },
             dataType: "text",
             success: function (response) {
-               
+
                 if (response == "success") {
                     vm.update(null)
                     fetchPlaylistData();
@@ -231,17 +237,25 @@ $(document).ready(async () => {
         });
     }
 
-    function resetAddModal(){
+    function resetAddModal() {
         $("#nameInp").val("");
         vm2.updateUserTracks(null);
     }
-    function closeAddModal(){
+    function closeAddModal() {
         resetAddModal();
         $("#modal-addPlayList").modal('hide');
     }
 
-    function  ResetPlaylistEditModal(){
+    function ResetPlaylistEditModal() {
         $("#playlistEditSelect").html("");
         $("#nameInpEdit").val("");
+    }
+
+    function searchSelectedTracks(arr,elem){
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].idt == elem.idt){
+                return true
+            }
+        }
     }
 });
