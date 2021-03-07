@@ -55,7 +55,7 @@ $(document).ready(async () => {
 
         $("#addOpenModal").unbind("click").bind("click", async () => {
             let userTracks = await loadUserTracks();
-            console.log(userTracks);
+            //console.log(userTracks);
             await vm2.updateUserTracks(userTracks);
             $("#modal-addPlayList").modal();
         });
@@ -135,19 +135,9 @@ $(document).ready(async () => {
                                 $("#modal-editPlayList").modal();
 
 
-                                $("#editSubmit").click(async (e) => {
-
-                                    if (title == "") {
-                                        $("#titleInpEdit").addClass("is-invalid");
-                                    } else {
-                                        $("#titleInpEdit").removeClass("is-invalid");
-                                    }
-
-                                    if (description == "") {
-                                        $("#description").addClass("is-invalid");
-                                    } else {
-                                        $("#description").removeClass("is-invalid");
-                                    }
+                                $("#editSubmit").unbind("click").bind("click", async (e) => {
+                                   console.log($("#playlistEditSelect").val());
+                                   //editPlaylist(id,$("#nameInpEdit").val(),$("#playlistEditSelect").val());
 
                                 });
 
@@ -257,5 +247,19 @@ $(document).ready(async () => {
                 return true
             }
         }
+    }
+   async function editPlaylist(id,newTitle,newTracks){
+    $.ajax({
+        type: "POST",
+        url: "Requests/Playlist/editPlaylist.php",
+        data: { id:id,title:newTitle,Tracks:newTracks},
+        dataType: "text",
+        success: function (response) {
+            console.log(response);
+            if (response == "success") {
+                
+            }
+        }
+    });
     }
 });

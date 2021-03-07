@@ -118,7 +118,7 @@ if (!isset($_SESSION["id"])) header('Location:login.php');
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addPlaylist">Edit</button>
+                <button type="button" class="btn btn-primary" id="editSubmit">Edit</button>
               </div>
             </div>
             <!-- /.modal-content -->
