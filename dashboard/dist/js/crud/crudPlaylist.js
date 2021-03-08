@@ -55,7 +55,7 @@ $(document).ready(async () => {
 
         $("#addOpenModal").unbind("click").bind("click", async () => {
             let userTracks = await loadUserTracks();
-            //console.log(userTracks);
+            console.log(userTracks);
             await vm2.updateUserTracks(userTracks);
             $("#modal-addPlayList").modal();
         });
