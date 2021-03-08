@@ -91,10 +91,10 @@ $(document).ready(async () => {
 
                 });
                 if (response != "error") {
-                    console.log(response);
+                   // console.log(response);
                     let data = JSON.parse(response);
 
-                    console.log(data);
+                   // console.log(data);
                     await vm.update(data);
 
 
@@ -114,12 +114,12 @@ $(document).ready(async () => {
 
                                 $("#nameInpEdit").val(data.name);
                                 let userTracks = await loadUserTracks();
-                               
+
                                 userTracks.forEach(elem => {
 
-                                    
 
-                                    if (searchSelectedTracks(data.tracks[0],elem)) {
+
+                                    if (searchSelectedTracks(data.tracks[0], elem)) {
 
                                         $("#playlistEditSelect").append(`<option selected = true value = '${elem.idt}'>${elem.title}</option>`);
                                     }
@@ -136,8 +136,8 @@ $(document).ready(async () => {
 
 
                                 $("#editSubmit").unbind("click").bind("click", async (e) => {
-                                   console.log($("#playlistEditSelect").val());
-                                   //editPlaylist(id,$("#nameInpEdit").val(),$("#playlistEditSelect").val());
+                                   // console.log($("#playlistEditSelect").val());
+                                    editPlaylist(id, $("#nameInpEdit").val(), $("#playlistEditSelect").val());
 
                                 });
 
@@ -241,25 +241,32 @@ $(document).ready(async () => {
         $("#nameInpEdit").val("");
     }
 
-    function searchSelectedTracks(arr,elem){
+    function searchSelectedTracks(arr, elem) {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i].idt == elem.idt){
+            if (arr[i].idt == elem.idt) {
                 return true
             }
         }
     }
-   async function editPlaylist(id,newTitle,newTracks){
-    $.ajax({
-        type: "POST",
-        url: "Requests/Playlist/editPlaylist.php",
-        data: { id:id,title:newTitle,Tracks:newTracks},
-        dataType: "text",
-        success: function (response) {
-            console.log(response);
-            if (response == "success") {
-                
+    async function editPlaylist(id, newTitle, newTracks) {
+        $.ajax({
+            type: "POST",
+            url: "Requests/Playlist/editPlaylist.php",
+            data: { id: id, title: newTitle, tracks: newTracks },
+            dataType: "text",
+            success: function (response) {
+                console.log(response);
+                if (response == "Edit1") {
+                    fetchPlaylistData();
+                    closeEditPlaylistModal();
+                }
             }
-        }
-    });
+        });
+
     }
+
+    function closeEditPlaylistModal() {
+        $("#modal-editPlayList").modal('hide');
+    }
+
 });
