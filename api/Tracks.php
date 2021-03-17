@@ -26,7 +26,7 @@ function getTrackById($conn)
 function getTrackByTitle($conn)
 {
     $title = $_GET["title"];
-    $sql = "select * from track where title = $title";
+    $sql = "select * from track where title = '$title'";
     $arrayData = array();
     $result = $conn->query($sql);
     while ($row = $result->fetch_assoc()) {
@@ -64,7 +64,7 @@ function getTracks($conn)
 if (isset($_GET["id"])) {
     echo getTrackById($conn);
 }
-if (isset($_GET["name"])) {
+if (isset($_GET["title"])) {
     echo getTrackByTitle($conn);
 } else {
     echo getTracks($conn);
