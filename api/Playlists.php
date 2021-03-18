@@ -142,6 +142,7 @@ if (isset($_GET["id"])) {
 }
 if (isset($_GET["name"])) {
     echo getPlaylistByName($conn);
-} else {
+}
+else {
     echo getPlaylists($conn);
 }
