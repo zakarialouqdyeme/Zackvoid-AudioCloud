@@ -348,8 +348,8 @@ div#amplitude-player {
         margin-top: 40px;
         float: none; } }
     div#control-container div#central-control-container {
-      width: 50%;
-      float: left; }
+     /*  width: 50%;
+      float: left; */ }
       div#control-container div#central-control-container div#central-controls {
         width: 130px;
         margin: auto; }

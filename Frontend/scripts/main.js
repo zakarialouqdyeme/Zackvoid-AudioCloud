@@ -36,7 +36,8 @@ $(document).ready(async () => {
 
             },
             playTrack: function (e) {
-                initAmplitude();
+                // initAmplitude();
+                Amplitude.skipTo(0, e, playlist = null);
                 Amplitude.playSongAtIndex(e);
 
             }
@@ -96,9 +97,9 @@ $(document).ready(async () => {
                     this.querySelectorAll('.play-button-container')[0].style.display = 'none';
                 } */
 
-                this.querySelectorAll('img.bandcamp-grey')[0].style.display = 'none';
-                this.querySelectorAll('img.bandcamp-white')[0].style.display = 'block';
-                this.querySelectorAll('.song-duration')[0].style.color = '#FFFFFF';
+                /*  this.querySelectorAll('img.bandcamp-grey')[0].style.display = 'none';
+                 this.querySelectorAll('img.bandcamp-white')[0].style.display = 'block'; */
+                /*  this.querySelectorAll('.song-duration')[0].style.color = '#FFFFFF'; */
             });
 
             /*
@@ -109,9 +110,9 @@ $(document).ready(async () => {
                 this.querySelectorAll('.song-meta-data .song-title')[0].style.color = '#272726';
                 this.querySelectorAll('.song-meta-data .song-artist')[0].style.color = '#607D8B';
                 this.querySelectorAll('.play-button-container')[0].style.display = 'none';
-                this.querySelectorAll('img.bandcamp-grey')[0].style.display = 'block';
-                this.querySelectorAll('img.bandcamp-white')[0].style.display = 'none';
-                this.querySelectorAll('.song-duration')[0].style.color = '#607D8B';
+                /*  this.querySelectorAll('img.bandcamp-grey')[0].style.display = 'block';
+                 this.querySelectorAll('img.bandcamp-white')[0].style.display = 'none'; */
+                /* this.querySelectorAll('.song-duration')[0].style.color = '#607D8B'; */
             });
 
             /*
@@ -120,6 +121,7 @@ $(document).ready(async () => {
             $($(".song")[0]).removeClass("amplitude-song-container");
             $($(".song")[0]).addClass("amplitude-active-song-container");
             $(".song").click(function (e) {
+
                 $('.play-button-container')[0].style.display = 'none';
                 $(".song").removeClass("amplitude-active-song-container");
                 $(e.currentTarget).addClass("amplitude-active-song-container");

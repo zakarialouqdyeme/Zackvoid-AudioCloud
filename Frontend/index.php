@@ -13,6 +13,8 @@ require_once(dirname(__FILE__) . "/" . '../config.php');
 </head>
 <body>
 
+<select name="" id="" ></select>
+
 <!-- Blue Playlist Container -->
 <div id="blue-playlist-container">
 
@@ -44,10 +46,10 @@ require_once(dirname(__FILE__) . "/" . '../config.php');
             </div>
 
             <div id="control-container">
-                <div id="repeat-container">
+               <!--  <div id="repeat-container">
                     <div class="amplitude-repeat" id="repeat"></div>
                     <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
-                </div>
+                </div> -->
 
                 <div id="central-control-container">
                     <div id="central-controls">
@@ -63,7 +65,7 @@ require_once(dirname(__FILE__) . "/" . '../config.php');
                         <input type="range" class="amplitude-volume-slider"/>
                         <div class="ms-range-fix"></div>
                     </div>
-                    <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div>
+                    <!-- <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div> -->
                 </div>
             </div>
 
@@ -93,11 +95,11 @@ require_once(dirname(__FILE__) . "/" . '../config.php');
                 <span class="song-title">{{data.name}}</span>
                 <span class="song-artist">{{data.album}}</span>
             </div>
-            <a href="https://switchstancerecordings.bandcamp.com/track/risin-high-feat-raashan-ahmad" class="bandcamp-link" target="_blank">
+            <!-- <a href="https://switchstancerecordings.bandcamp.com/track/risin-high-feat-raashan-ahmad" class="bandcamp-link" target="_blank">
                 <img class="bandcamp-grey" src="https://521dimensions.com/img/open-source/amplitudejs/blue-player/bandcamp-grey.svg"/>
                 <img class="bandcamp-white" src="https://521dimensions.com/img/open-source/amplitudejs/blue-player/bandcamp-white.svg"/>
-            </a>
-            <span class="song-duration">3:30</span>
+            </a> -->
+           <!--  <span class="song-duration">3:30</span> -->
         </div>
        
     </div>
