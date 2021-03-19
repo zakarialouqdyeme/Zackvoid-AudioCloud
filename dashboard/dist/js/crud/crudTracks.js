@@ -323,14 +323,15 @@ $(document).ready(async () => {
     image_crop = $('#upload-image').croppie({
         enableExif: true,
         viewport: {
-            width: 150,
-            height: 150,
+            width: 300,
+            height: 300,
             type: 'square'
         },
         boundary: {
             width: 300,
             height: 300
-        }
+        },
+        quality:1
 
     });
     $('#upload-image').hide();
@@ -446,14 +447,15 @@ $(document).ready(async () => {
     image_cropEdit = $('#upload-image-edit').croppie({
         enableExif: true,
         viewport: {
-            width: 150,
-            height: 150,
+            width: 300,
+            height: 300,
             type: 'square'
         },
         boundary: {
             width: 300,
             height: 300
-        }
+        },
+        quality:1
 
     });
 
@@ -477,14 +479,15 @@ $(document).ready(async () => {
             enableExif: true,
 
             viewport: {
-                width: 150,
-                height: 150,
+                width: 300,
+                height: 300,
                 type: 'square'
             },
             boundary: {
                 width: 300,
                 height: 300
-            }
+            },
+            quality:1
 
         });
 
