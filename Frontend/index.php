@@ -12,8 +12,10 @@ require_once(dirname(__FILE__) . "/" . '../config.php');
     <link rel="stylesheet" href="Assets/style.css">
 </head>
 <body>
-
-<select name="" id="" ></select>
+<div id="playlist">
+<select v-on:change = "playlistChanged($event)" id="selectPlaylist">
+<option v-for = "data in getPlaylists()" v-bind:value = "data.index">{{data.name}}</option>
+</select>
 
 <!-- Blue Playlist Container -->
 <div id="blue-playlist-container">
@@ -109,7 +111,7 @@ require_once(dirname(__FILE__) . "/" . '../config.php');
 <!-- End Amplitdue Player -->
 
 </div>
-
+</div>
 
     <script src="lib/jquery-3.6.0.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.min.js"></script>

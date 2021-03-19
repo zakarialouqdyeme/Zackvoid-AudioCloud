@@ -13,14 +13,19 @@ $(document).ready(async () => {
 
     const url = "http://127.0.0.1:8080/Zackvoid%20AudioCloud/api/Playlists.php";
 
+    let playlistSelected = 0;
+    let tracksArray = [];
+    let playlistsArray = [];
+
     let requestInit = {
         credentials: 'include',
         method: 'get',
     };
 
+
     let vm = new Vue({
-        el: "#amplitude-right",
-        data: { Tracks: [] },
+        el: "#playlist",
+        data: { Tracks: [], Playlists: [] },
         methods: {
             updateTracks: async function (item) {
                 this.Tracks.splice(0);
@@ -30,9 +35,22 @@ $(document).ready(async () => {
                 }
 
             },
+            updatePlaylists: async function (item) {
+                this.Playlists.splice(0);
+                this.Playlists = item;
+                if (item == null) {
+                    this.Playlists = [];
+                }
+
+            },
             getTracks: function () {
 
                 return this.Tracks;
+
+            },
+            getPlaylists: function () {
+
+                return this.Playlists;
 
             },
             playTrack: function (e) {
@@ -40,12 +58,16 @@ $(document).ready(async () => {
                 Amplitude.skipTo(0, e, playlist = null);
                 Amplitude.playSongAtIndex(e);
 
+            },
+            playlistChanged: function (event) {
+                playlistSelected = event.target.value;
+                initAll();
+
             }
         }
     });
 
-    let playlistSelected = 1;
-    let tracksArray = [];
+
     async function loadTracksData() {
 
         let data = await fetchPlaylistsData();
@@ -61,13 +83,30 @@ $(document).ready(async () => {
         }
 
     }
+    async function loadPlaylistsData() {
 
-    await loadTracksData();
-    await vm.updateTracks(tracksArray);
-    initAmplitude();
-    Amplitude.playSongAtIndex(0);
+        let data = await fetchPlaylistsData();
+        for (let i = 0; i < data.length; i++) {
+            let currentTrackData = {
+                "name": `${data[i].name}`,
+                "index": `${i}`,
+            };
+            playlistsArray.push(currentTrackData);
+        }
+    }
 
+    vm.updatePlaylists(null);
+    await loadPlaylistsData();
+    await vm.updatePlaylists(playlistsArray);
+    initAll();
 
+    async function initAll() {
+        vm.updateTracks(null);
+        await loadTracksData();
+        await vm.updateTracks(tracksArray);
+        initAmplitude();
+        Amplitude.playSongAtIndex(0);
+    }
 
     function initAmplitude() {
         let bandcampLinks = document.getElementsByClassName('bandcamp-link');
@@ -90,16 +129,6 @@ $(document).ready(async () => {
 
                 this.querySelectorAll('.song-meta-data .song-title')[0].style.color = '#FFFFFF';
                 this.querySelectorAll('.song-meta-data .song-artist')[0].style.color = '#FFFFFF';
-
-                /* if (!this.classList.contains('amplitude-active-song-container')) {
-                    this.querySelectorAll('.play-button-container')[0].style.display = 'block';
-                } else {
-                    this.querySelectorAll('.play-button-container')[0].style.display = 'none';
-                } */
-
-                /*  this.querySelectorAll('img.bandcamp-grey')[0].style.display = 'none';
-                 this.querySelectorAll('img.bandcamp-white')[0].style.display = 'block'; */
-                /*  this.querySelectorAll('.song-duration')[0].style.color = '#FFFFFF'; */
             });
 
             /*
@@ -110,9 +139,7 @@ $(document).ready(async () => {
                 this.querySelectorAll('.song-meta-data .song-title')[0].style.color = '#272726';
                 this.querySelectorAll('.song-meta-data .song-artist')[0].style.color = '#607D8B';
                 this.querySelectorAll('.play-button-container')[0].style.display = 'none';
-                /*  this.querySelectorAll('img.bandcamp-grey')[0].style.display = 'block';
-                 this.querySelectorAll('img.bandcamp-white')[0].style.display = 'none'; */
-                /* this.querySelectorAll('.song-duration')[0].style.color = '#607D8B'; */
+
             });
 
             /*
@@ -161,7 +188,6 @@ $(document).ready(async () => {
             },
 
         });
-        //document.getElementById('large-visualization').style.height = document.getElementById('album-art').offsetWidth + 'px';
     }
 
 
@@ -169,4 +195,5 @@ $(document).ready(async () => {
         let data = await fetch(url, requestInit);
         return data.json();
     }
+
 });
