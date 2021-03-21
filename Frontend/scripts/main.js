@@ -61,8 +61,8 @@ $(document).ready(async () => {
             },
             playlistChanged: function (event) {
                 playlistSelected = event.target.value;
+                Amplitude.stop();
                 initAll();
-
             }
         }
     });
